@@ -17,14 +17,13 @@ public class Grid {
     }
 
     public Grid() {
-        this(10, 10);
+        this(20, 10);
     }
 
 
     @Override
     public String toString() {
-        String res = "";
-        res += mur;
+        String res = mur;
         for (int j = 0; j < this.width; j++) {
             res += murHaut + murHaut + murHaut + murHaut;
         }

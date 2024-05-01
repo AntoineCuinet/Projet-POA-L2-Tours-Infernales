@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Grid grid = new Grid(20, 5);
+        Grid grid = new Grid(20, 10);
         System.out.println(grid);
         
     }
