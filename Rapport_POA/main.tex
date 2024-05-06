@@ -1,0 +1,409 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%   Template de rapport CUINET Antoine   %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper, french]{report} % Type du document (ici un rapport)
+
+%%% Paquets utiles
+\usepackage[T1]{fontenc} % caractères français
+\usepackage[utf8]{inputenc} % accents
+\usepackage[french,english]{babel} % langues
+\usepackage{xcolor} % couleurs
+\usepackage{blindtext}
+\usepackage{fancyhdr} % pour la pagination
+\usepackage{lastpage} % pour avoir le nombre de pages totales du document
+\usepackage{fourier}
+\usepackage{multicol} % pour avoir multiples colonnes localement
+\usepackage{amsmath,amssymb,amsthm,delarray,indentfirst,numprint,manfnt}
+\usepackage{soulutf8}
+\usepackage{eurosym}
+\usepackage{datatool}
+\usepackage{fontawesome5}%pour les icons
+\usepackage{nopageno} % pagination
+\usepackage{soul, lettrine}
+\usepackage{ipa,indentfirst,epic,ecltree}
+\usepackage{graphicx} % mettre des images
+\usepackage{floatrow} % pour les images (redéfinitions)
+\usepackage{caption} % pour les images
+\usepackage{wrapfig} % images dans un text
+\usepackage[most]{tcolorbox}
+\usepackage[rightcaption]{sidecap} % mettre des images à gauche et à droite d'un texte
+\usepackage{geometry} % pour les marges
+\usepackage{wrapfig}
+\usepackage{moreverb} % verbatim en box ebvironnement boxedverbatim
+\usepackage{verbatim} % texte préformaté
+\usepackage{fancyvrb} % verbatim mais en mieux on l'utilise avec \begin{BVerbatim}, et cette fois on peut centrer
+\usepackage{authblk}
+\usepackage{wasysym}
+\usepackage{listings}
+\usepackage{titlesec} % pour enlever le mot "chapitre"
+\usepackage{lipsum} % ajouter du texte dans les dessins tikz
+\usepackage{tikz} % pour dessiner
+\usepackage{pgf}
+\usepackage[linesnumbered,algosection]{algorithm2e} %Pour le PDL
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{lmodern,eso-pic,fullpage}  
+\usepackage{stackengine,scalerel}
+\usepackage[colorlinks=true, % colorise les liens
+            urlcolor=black, % couleur des hyperliens
+            linkcolor=black, % couleur des liens internes aux documents (index, figures, tableaux, equations,...)
+            breaklinks=true, % permet les retours à la ligne pour les liens trop longs
+            citecolor= black, % couleur des liens vers les references bibliographiques
+            plainpages=false  %pour palier à "Bookmark problems can occur when you have duplicate page numbers, for example, if you have a page i and a page 1."
+            ]{hyperref} % pour utiliser des liens internes, càd en réferencant une partie en peut mettre un lien vers celle-ci et ça avec \hyperref[nom du label]{le texte où y'aura le lien} sans oublier de mettre le \label{nom du label} sur la partie que vous voulez réferencer
+\usepackage[bottom]{footmisc} % remettre le compteur de footnote à 0 par section
+\counterwithin*{footnote}{section} %numerote les footnote par section
+
+%%% set-up francais (espaces et notes en bas de page)
+\frenchbsetup{AutoSpaceFootnotes,FrenchFootnotes}%
+
+%%% indentations
+\newlength{\savedparindent}
+\setlength{\savedparindent}{\parindent}
+\newcommand{\restoreparindent}{\setlength{\parindent}{\savedparindent}}
+
+%%% permet de changer le nom de la liste des figures et celui des tableaux
+\addto\captionsfrench{%
+  \renewcommand{\listfigurename}{~~~LISTE DES FIGURES}%
+  \renewcommand{\listtablename}{~~~LISTE DES TABLEAUX}%
+  \renewcommand{\listalgorithmcfname}{~~~LISTE DES ALGORITHMES}%
+  \renewcommand{\bibname}{~~~V -~BIBLIOGRAPHIE}% change le nom de la bibliographie
+}
+
+\counterwithin*{footnote}{section} % numerote les footnote par section
+\setcounter{secnumdepth}{3} % affiche le sommaire jusqu'à une profondeur de 3
+
+\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge} % format du titre
+% \addto{\captionsfrench}{
+%     \renewcommand*{\chapternamename}{Partie}}
+
+%%% pour le glossaire
+\newcommand{\sortitem}[2][]{%
+  \DTLnewrow{list}%
+  \DTLnewdbentry{list}{description}{\textbf{#1~:\xspace}\xspace#2}%**
+  }
+
+\newenvironment{sortedlist}{%
+  \DTLifdbexists{list}{\DTLcleardb{list}}{\DTLnewdb{list}}%
+  }%
+  {%
+  \DTLsort{description}{list}% Sort list
+  \begin{description}[labelindent=-0.5em]%
+    \DTLforeach*{list}{\theDesc=description}{%
+    \item\theDesc}% Print each item
+  \end{description}}
+
+%%% tout cela sert pour la position des logos des entreprises
+\newcommand{\blap}[1]{\vbox to 0pt{#1\vss}}
+\newcommand\AtUpperLeftCorner[3]{\put(\LenToUnit{#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{#3}}}
+\newcommand\AtTopCenterPage[2]{\put(\LenToUnit{.5\paperwidth},\LenToUnit{\dimexpr\paperheight-#1}){\blap{\hbox to 0pt{\hss#2\hss}}}}
+\newcommand\AtUpperRightCorner[3]{\put(\LenToUnit{\dimexpr\paperwidth-#1},\LenToUnit{\dimexpr\paperheight-#2}){\blap{\llap{#3}}}}
+\lstset{basicstyle=\ttfamily, mathescape=true} % utiliser le module maths
+
+%%% permet d'afficher les numéros des titres selon un certain style
+\renewcommand\thechapter{\Roman{chapter}} % ici chiffres romains pour les chapitres (se voit que dans le sommaire)
+\renewcommand\thesection{\Alph{section}} % ici lettres majuscules pour les sections
+\renewcommand\thesubsection{\thesection\,-\,\arabic{subsection}} % ici chiffres arabes pour les sous-sections (\thesection-  pour mettre la section est un tiret entre)
+
+% Pour les pénalités :
+\interfootnotelinepenalty=150 % note de bas de page
+\widowpenalty=150 % veuves et orphelines
+\clubpenalty=150
+
+%%% bas/haut de page
+\fancypagestyle{plain}{ % redéfinition de ce style pour l'affichage de la pagination sur les pages ou sont défini les chapitres
+  \renewcommand{\headrulewidth}{0pt} % ligne horizontale du haut de page
+  \renewcommand{\footrulewidth}{0.5pt} % ligne horizontale en bas de page 
+}  
+\pagestyle{fancy}
+\fancyhead[L]{}
+
+\renewcommand{\headrulewidth}{0pt} % ligne horizontale du haut de page
+\renewcommand{\footrulewidth}{0.5pt} % ligne horizontale en bas de page
+\pagenumbering{arabic} % pour la numérotation des pages en chiffres
+\setlength{\headheight}{25.33461pt}
+
+%%% Définition des couleurs: \textcolor{camouflagegreen}{\textsc{...}} pour l'utiliser
+\definecolor{babyblueeyes}{rgb}{0.63, 0.79, 0.95} %joli bleu
+\definecolor{blush}{rgb}{0.87, 0.36, 0.51} %joli rose
+\definecolor{chromeyellow}{rgb}{1.0, 0.65, 0.0} %joli jaune\orange pour julie 
+\definecolor{camouflagegreen}{rgb}{0.47, 0.53, 0.42} %joli vert
+\definecolor{cardinal}{rgb}{0.77, 0.12, 0.23} %joli rouge
+\definecolor{purple}{rgb}{0.57, 0.36, 0.51} %joli violet
+\definecolor{auburn}{rgb}{1.57, 0.62, 0.12} % marron
+
+%%% Définition de commandes utiles
+\newtcbox{\mybox}{colback=red!5!white, colframe=red!75!black} % encadré rouge
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % utiliser "\HRule" pour faire une ligne noir
+\newcommand{\frule}[1][\textwidth]{\rule{#1}{0.4mm}} % utiliser \frule[taille] pour faire ligne noir
+\newcommand{\maj}[1]{\uppercase{#1}}% permet de mettre en majuscule
+\newcommand{\hlc}[2][yellow]{{\sethlcolor{#1} \hl{#2}}} % pour surligner en jaune: \hlc  pour l'utiliser
+\newcommand{\g}[1]{\og#1 \fg} % guillemets, s'utilise: \g{} 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Modifications here   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Définitions des commandes personnalisées 
+\newcommand{\nom}[1]{\href{https://www.koredge.fr/}{\textsc{Koredge}}}% pour le nom de l'agence 
+\newcommand{\adr}[1]{\href{https://goo.gl/maps/6j9bxdbWx3H1bwSYA}{Rue du Bois de la Courbe – ZAC Valentin Nord – 25870 CHATILLON LE DUC}}% pour l'adresse de l'agence \adr\~ pour l'utiliser
+\newcommand{\wpress}[1]{\textsc{WordPress}}% nom de vertical
+\newcommand{\ginko}[1]{\href{https://www.ginko.voyage/}{\textsc{Ginko}}}% site ginko
+
+\title{ \LARGE{Rapport de projet de Programmation Objet Avancée}\\[0,5cm] % Titre
+        \Huge{Les Tours Infernales}}
+
+\author{ \\ \huge{\textbf{Antoine CUINET}} \\ 
+        ~\\
+        \textbf{Tristan AMIOTTE-SUCHET}} % Auteur
+\newcommand{\anneeUniversitaire}{Année 2023–2024} % Date
+
+\fancyhead[R]{\textbf{\mbox{LES TOURS INFERNALES}}\\
+~} % met le haut de page à vide
+
+\fancyfoot[L]{POA Informatique~-~L2}
+\fancyfoot[R]{\leftmark} % affiche en pied de page le nom du chapitre
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % enlève le mot "chapitre X" dans le pied de page avant le nom du chapitre
+\fancyfoot[C]{\textbf{page \thepage~sur~\pageref{LastPage}}} % numérote les pages
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Le PDL (pseudo-language)   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%pour les entiers
+\SetKwProg{FnInt}{ \textcolor{blush}{entier} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les caractères
+\SetKwProg{FnChar}{ \textcolor{blush}{car} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les booléens
+\SetKwProg{FnBool}{ \textcolor{blush}{booléen} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les tableaux de dimension 1
+\SetKwProg{FnTab}{\textcolor{blush}{tab[]} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les tableaux de caractères
+\SetKwProg{FnCharTab}{\textcolor{blush}{car[ ]} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les positions
+\SetKwProg{FnPos}{ \textcolor{blush}{Position} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les matrices de dimension 2
+\SetKwProg{FnMat}{\textcolor{blush}{tab[][]} \textcolor{babyblueeyes}{fonction}}{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%pour les réels
+\SetKwProg{FnReel}{\textcolor{blush}{réel} \textcolor{babyblueeyes}{fonction} }{}{\textcolor{babyblueeyes}{fin Fonction}}
+
+%Actions
+\SetKwProg{Act}{\textcolor{chromeyellow}{action}}{}{\textcolor{chromeyellow}{fin Action}}
+
+%html
+\SetKwProg{html}{<\textcolor{blue}{html}>}{}{</\textcolor{blue}{html}>}
+
+%head
+\SetKwProg{head}{<\textcolor{blue}{head}>}{}{</\textcolor{blue}{head}>}
+
+%body html
+\SetKwProg{body}{<\textcolor{blue}{body}>}{}{</\textcolor{blue}{body}>}
+
+%body css
+\SetKwProg{bodycss}{\textcolor{blue}{body} \textcolor{blue}{\textcolor{auburn}{ $\{$ }}}{}{\textcolor{auburn}{$\}$}}
+
+%div container
+\SetKwProg{div}{<\textcolor{blue}{div} \textcolor{cyan}{class}=\textcolor{auburn}{“container”}>}{}{</\textcolor{blue}{div}>}
+
+% . CSS
+\SetKwProg{point}{\textcolor{auburn}{.}}{}{\textcolor{auburn}{ $\} $ }}
+
+% @keyframes CSS
+\SetKwProg{keyf}{\textcolor{purple}{@keyframes}}{}{\textcolor{auburn}{ $\} $ }}
+
+%algo
+\RestyleAlgo{boxed}
+\SetAlgoSkip{1cm}
+
+
+
+
+%%% Début du document ici
+\begin{document}%
+\selectlanguage{french}
+\hypersetup{pdfborder=0 0 0}% permet de ne pas avoir un encadré rouge autour des liens
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   COUVERTURE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{assets/couverture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   REMERCIEMENTS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% décommenter ici pour rajouter les remeciements
+% \input{assets/remerciements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   SOMMAIRE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage%
+\phantomsection% permet de rediriger au bon endroit (sinon redirige vers sommaire)
+\large%
+\renewcommand{\contentsname}{~~~SOMMAIRE}%
+\tableofcontents%
+%\addcontentsline{toc}{chapter}{i~~~~~~SOMMAIRE}%
+% \normalsize%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   LISTE DES FIGURES  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage%
+\phantomsection% 
+\addcontentsline{toc}{chapter}{i~~~~~~LISTE DES FIGURES}% Pardon pour le i~~~~~~
+\listoffigures%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   LISTE DES ALGORITHMES  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage%
+\phantomsection%
+\addcontentsline{toc}{chapter}{ii~~~~~LISTE DES ALGORITHMES}%
+\listofalgorithms%
+\normalsize%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   INTRODUCTION  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{assets/introduction}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Chapitre 1  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{assets/chapitre-1}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Chapitre 2   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{assets/chapitre-2}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Chapitre 2   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{assets/chapitre-3}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   CONCLUSION   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{assets/conclusion}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   ANNEXES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% décommenter ici pour rajouter les annexes
+% \input{assets/annexes}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   BIBLIOGRAPHIE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{assets/bibliographie}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   4eme de couverture   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{assets/4eme-de-couverture}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  END   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip % gros espace
+\smallskip % patit espace
+\noindent % enlève l'indentation
+
+
+%%% pour faire une note en bas de page
+% befib\footnote{eriughru} 
+
+%%% pour mettre des liens 
+%\url{../texmaker} %liens vers une site 
+%\href{mailto:truc@bidon.org}{truc@bidon.org} %liens vers un mail
+
+
+%%% pour mettre des algos
+% \begin{algorithm}
+%   \caption[\emph{Balise Meta pour le non-indexage d'un site}]{\label{non_indexage}Action d'affichage des voitures}
+%   \Entree{Vehicule v, entier nbCases = 6 , entier tailleCanvas = 600}
+%   \tcp{ \textcolor{camouflagegreen}{Fonction qui va convertir une position [i][j] en une case dans la grille}} 
+%   \Act{affichageVehicules\textbf{(\textcolor{blush}{Position} pos, \textcolor{blush}{entier} tailleCanvas, \textcolor{blush}{entier} NbCases)}}{ 
+%     \textcolor{blush}{entier} ct $ \leftarrow $ tailleCanvas/nbCases \\
+%     \textcolor{blush}{entier} t $ \leftarrow $ tailleCanvas \\
+%     afficher((pos.i*ct,pos.j*ct),(pos.i*ct+ct*t,pos.j*ct)) \\ % pour la longueur
+%     afficher((pos.i*ct,pos.j*ct),(pos.i*ct,pos.j*ct+ct*t)) \\ % pour la longueur
+%   }
+% \end{algorithm}
+
+
+%%% pour écrire dans un encadré
+% \begin{center}
+% \begin{boxedverbatim}
+%
+% \end{boxedverbatim}
+% \end{center}
+
+
+%%% faire une flèche
+% $ \leftarrow $ 
+
+
+%%% pour mettre des images (2 façons ici)
+% \begin{wrapfigure}[17]{r}{0.4\columnwidth}
+%   \centering%
+%   \includegraphics[width=0.9\textwidth]{logoKoredge.png}% 
+%    % entre crochet ce qui apparait dans la liste des figures, entre acolade ce qui pparait en dessous de la figure
+%   \caption[\emph{Titre}]{ \emph{Titre} légende, (source)}
+%   \label{Tux}%
+% \end{wrapfigure}
+
+% \newpage
+% Rush-Hour est un jeu de type casse-tête créé par Nob Yoshigahara à la fin des années 1970. Initialement un jeu de plateau, son succès a permis l'adaptation du jeu de société en jeu vidéo. Le but du jeu est simple: réussir à faire sortir la voiture principale de la grille en déplaçant les véhicules qui bloquent la voiture, le tout en un minimum de mouvements. A partir de ce nombre de mouvements, le joueur peut décrocher entre trois à une étoile selon son score.
+% Dans le tableau~\ref{Tux}, page~\pageref{Tux}, nous lisons
+% \begin{figure}[!ht]
+%   \centering% 
+%   \includegraphics[width=0.6\textwidth]{logoKoredge.png}
+%   \caption{Titre légende, (source) }%
+%   \label{Tux2}
+% \end{figure}
+% Rush-Hour est un jeu de type casse-tête créé par Nob Yoshigahara à la fin des années 1970. Initialement un jeu de plateau, son succès a permis l'adaptation du jeu de société en jeu vidéo. Le but du jeu est simple: réussir à faire sortir la voiture principale de la grille en déplaçant les véhicules qui bloquent la voiture, le tout en un minimum de mouvements. A partir de ce nombre de mouvements, le joueur peut décrocher entre trois à une étoile selon son score.
+% Dans le tableau~\ref{Tux2}, page~\pageref{Tux2}, nous lisons
+
+
+%%% toutes les couleurs:
+% \textcolor{camouflagegreen}{\textsc{camouflagegreen}}
+% \textcolor{babyblueeyes}{\textsc{babyblueeyes}}
+% \textcolor{blush}{\textsc{blush}}
+% \textcolor{chromeyellow}{\textsc{chromeyellow}}
+% \textcolor{cardinal}{\textsc{cardinal}}
+% \textcolor{purple}{\textsc{purple}}
+% \color{blue}{blue}
+% \color{brown}{brown}
+% \color{cyan}cyan
+% \color{darkgray}darkgray
+% \color{gray}gray
+% \color{green}green
+% \color{lightgray}lightgray
+% \color{lime}lime
+% \color{magenta}magenta
+% \color{olive}olive
+% \color{orange}orange
+% \color{pink}pink
+% \color{purple}purple
+% \color{red}red
+% \color{teal}teal
+% \color{violet}violet
+% \color{yellow}yellow
+% \color{black}black
+% \newpage
+\end{document}

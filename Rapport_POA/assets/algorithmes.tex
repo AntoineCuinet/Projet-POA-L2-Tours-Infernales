@@ -1,0 +1,61 @@
+%%% algo html pour ginko
+\begin{algorithm}
+    \caption[\emph{Animation site de Ginko (code HTML)}]{\label{HTML_ginko}Animation site de Ginko (code HTML).}
+    %\textbf{\textcolor{teal}{<!\,-\,- commentaire -\,->}}\\
+    \textbf{<!\textcolor{blue}{DOCTYPE} \textcolor{cyan}{html}>}\\
+    \html{}{
+      \head{}{
+      \smallskip
+      
+    \textbf{<\textcolor{blue}{title}>Animation pour le site de Ginko</\textcolor{blue}{title}>\\
+    \textbf{\textcolor{teal}{<!\,-\,- Lien vers le fichier CSS -\,->}}\\
+    <\textcolor{blue}{link} \textcolor{cyan}{rel}=\textcolor{auburn}{“stylesheet”} \textcolor{cyan}{href}=\textcolor{auburn}{“styles.css”}>\\}
+    \smallskip
+        
+    }
+    \smallskip
+    
+    \body{}{
+    \smallskip
+    
+    \div{}{
+    \textbf{<\textcolor{blue}{div} \textcolor{cyan}{class}=\textcolor{auburn}{text}>complet</\textcolor{blue}{div}>}\\
+    \textbf{<\textcolor{blue}{div} \textcolor{cyan}{class}=\textcolor{auburn}{text}>2min</\textcolor{blue}{div}>}\\
+    \textbf{<\textcolor{blue}{div} \textcolor{cyan}{class}=\textcolor{auburn}{text}>complet</\textcolor{blue}{div}>}\\
+    }
+    \smallskip
+    
+    }
+}
+\end{algorithm}
+\bigskip
+
+
+%%% algo css pour ginko
+\begin{algorithm}
+    \caption[\emph{Animation site de Ginko (code CSS)}]{\label{CSS_ginko}Animation site de Ginko (code CSS).}
+    \point{\textbf{\textcolor{auburn}{container $ \{ $ }}}{
+    height: \textcolor{blue}{15}px;\\
+    margin: \textcolor{blue}{0};\\
+    }
+    \smallskip
+
+    \point{\textbf{\textcolor{auburn}{text $ \{ $ }}}{
+    text-align: \textcolor{cardinal}{center};\\
+    font-size: \textcolor{blue}{15}px;\\
+    color: \textcolor{cardinal}{black};\\
+    \textcolor{teal}{/* animation (nom; durée; nombres de répétitions) */}\\
+    animation: \textcolor{darkgray}{text-switch} \textcolor{blue}{8}s \textcolor{cardinal}{infinite};\\
+    \textcolor{teal}{/* temps avant de commencer l'animation */}\\
+    animation-delay: \textcolor{blue}{2}s;\\
+    }
+    \smallskip
+
+    \keyf{\textbf{\textcolor{blue}{text-switch} \textcolor{auburn}{$ \{ $ }}}{
+    \textcolor{teal}{/* 2 valeurs de \% à chaque fois afin de faire un arrêt sur le text */}\\ 
+    \textcolor{darkgray}{0\%, 10\%} \{ transform: \textcolor{purple}{translateY}\,(\textcolor{blue}{0}); \}\\
+    \textcolor{darkgray}{40\%, 60\%} \{ transform: \textcolor{purple}{translateY}\,(\textcolor{blue}{-100}\%); \}\\
+    \textcolor{darkgray}{90\%, 100\%} \{ transform: \textcolor{purple}{translateY}\,(\textcolor{blue}{-200}\%); \}\\
+
+    }
+\end{algorithm}

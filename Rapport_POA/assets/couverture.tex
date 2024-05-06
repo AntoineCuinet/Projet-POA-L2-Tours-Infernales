@@ -1,0 +1,92 @@
+\makeatletter % permet d'afficher le titre (sinon on n'affiche pas le texte)
+\begin{titlepage} % génération de la première de couverture
+  \enlargethispage{3cm} % permet de pouvoir écrire plus bas dans la page 
+
+  \AddToShipoutPicture{ 
+  \AtUpperLeftCorner{2cm}{3.5cm}{\includegraphics[width=6.5cm]{assets/pictures/logos/logo_ufr.png}} % Logo à gauche en haut
+  \AtUpperRightCorner{2cm}{3.5cm}{\includegraphics[width=8.5cm]{assets/pictures/logos/logo_ubfc.png}}
+  %\AtTopCenterPage{1cm}{\includegraphics[width=2cm]{logocmiinfobesac.jpg}}
+  % \AtUpperRightCorner{2cm}{2cm}{\includegraphics[width=7cm]{assets/pictures/logos/logo_koredge.png}}
+  }
+
+  \begin{center}	
+    \vspace*{7.5cm}
+    \textsc{\@title} \\
+    \vspace*{0,5cm} 
+    \HRule%
+    \vspace*{0,5cm}
+    \large{\@author} \\ 
+    \vspace*{0.6cm}
+    \anneeUniversitaire\\
+    \vspace*{1cm}
+    % \includegraphics[width=12cm]{assets/pictures/photo_Koredge.jpg}
+  \end{center}
+
+  \vspace*{3cm}
+  \noindent
+  \large{\textbf{Groupe de TP:} TP2A~- CMI}\\
+  \large{\textbf{Année de licence:} Licence 2~- Informatique}\\
+  \large{\textbf{Unité d’enseignement:} Programmation Objet Avancée}\\
+  \vspace*{0cm}
+
+  % \noindent
+  % \large{\textbf{Superviseur académique:} \textsc{DADEAU} Frédéric}
+  
+  % \vspace*{1cm}
+  % \noindent
+  % \large{\textbf{Établissement de formation:} Première année de Licence en CMI Informatique  au sein de l'Université de Franche-Comté (Année 2022-2023)} \\
+  % \vspace*{0cm}
+
+  % \noindent
+  % \large{\textbf{Agence d’accueil:} Agence \nom\ }\\
+  % \adr%
+    
+\end{titlepage}
+\ClearShipoutPicture% empèche les logos de se répétés sur les autres pages
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   PAGE DE GARDE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty} % ne pas numéroter la page
+\setcounter{page}{0} % commencer la numérotation juste après
+\null% permet de faire une page vide
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   PAGE DE TITRE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \makeatletter % permet d'afficher le titre (sinon on n'affiche pas le texte)
+% \begin{titlepage} % génération de la première de couverture
+%   \enlargethispage{3cm}
+%   \begin{center}	
+%     \vspace*{5cm}
+%     \textsc{\@title} \\
+%     \vspace*{0,5cm}
+%     \HRule%
+%     \vspace*{0,5cm}
+%     \large{\@author} \\
+%     \vspace*{0.2cm}
+%     \anneeUniversitaire\\
+%     \vspace*{1cm}
+%   \end{center}
+%   \vspace*{5.5cm}
+%   \noindent
+%   \large{\textbf{Directeur de stage:} \textsc{LOIZEAU} Julien}\\
+%   \vspace*{0cm}
+
+%   \noindent\large{\textbf{Superviseur académique:} \textsc{DADEAU} Frédéric}
+%   \vspace*{1.5cm}
+
+%   \noindent
+%   \large{\textbf{Établissement de formation:} Première année de Licence en CMI Informatique  au sein de l'Université de Franche-Comté (Année 2022-2023)}\\
+%   \vspace*{0cm}
+
+%   \noindent
+%   \large{\textbf{Agence d’accueil:} Agence \nom\ }\\
+%   \adr%
+  
+% \end{titlepage}
+\newpage
