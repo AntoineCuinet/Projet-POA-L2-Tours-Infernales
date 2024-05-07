@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grid {
     private int width;
     private int height;
+    private List<Occupant> occupantsList;
 
     private String tour = "\u25A1";
     private String tourPleine = "\u25A3";
@@ -14,10 +18,15 @@ public class Grid {
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
+        this.occupantsList = new ArrayList<Occupant>();
     }
 
     public Grid() {
         this(20, 10);
+    }
+
+    public void addOccupant(Occupant occupant) {
+        this.occupantsList.add(occupant);
     }
 
 
