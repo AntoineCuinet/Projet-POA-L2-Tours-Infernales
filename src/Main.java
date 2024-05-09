@@ -8,10 +8,8 @@ public class Main {
     public static final String RESET_BG = "\u001B[40m";
 
 
-    public static void main(String[] args) {
-        
-        Grid grid = new Grid(20, 10);
-        System.out.println(grid);
-        
+    public static void main(String[] args) throws InvalidVelocityException {
+        Supervisor game = new Supervisor(20, 10, 2);
+        game.play();
     }
 }

@@ -16,8 +16,8 @@ public abstract class Occupant implements Redirector {
     }
 
     public void setPosition(Position position) {
-        this.position = position;
         this.grid.moveOccupant(this, position);
+        this.position = position;
     }
 
     public void setGrid(Grid grid) {
@@ -26,5 +26,6 @@ public abstract class Occupant implements Redirector {
         grid.addOccupant(this);
     }
 
+    @Override
     public abstract String toString();
 }

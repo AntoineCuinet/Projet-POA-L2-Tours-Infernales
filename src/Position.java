@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
@@ -33,8 +35,23 @@ public class Position {
         return this.z;
     }
 
+    public Position move(Direction dir) {
+        return new Position(x+dir.getVx(), y+dir.getVy(), z+dir.getVz());
+    }
+
     @Override
     public String toString() {
         return "(" + this.x + ", " + this.y + ", " + this.z + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Position other = (Position)obj;
+        return this.x == other.x && this.y == other.y && this.z == other.z;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z);
     }
 }

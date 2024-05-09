@@ -1,10 +1,9 @@
 public class Perso extends Moving {
-    private String perso = "\u263A";
+    private static final String perso = "\u263A";
 
     public Perso(Grid grid, Position position, Direction direction) {
         super(grid, position, direction);
     }
-
 
     @Override
     public void redirect(Moving m) {
