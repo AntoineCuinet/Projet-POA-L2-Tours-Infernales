@@ -1,31 +1,42 @@
 \chapter[~~~PRÉSENTATION DE L'APPLICATION]{~~~I -~Présentation de l'application}%
 \label{refDev1}%
 
-Ce premier chapitre présente \dots
+Ce premier chapitre présente l'application \nom\~et son contexte. Il détaille le sujet du projet, les choix réalisés par rapport à ce dernier et les extensions effectuées.
 
 \section{Résumé du sujet}
+\subsection{Introduction}
+
+Ce projet est un projet de fin de seconde année de licence d'informatique au sein de l'université de Franche-comté, dans l'unité d'enseignement Programmation Objet Avancée.
+Le projet a été réalisé en binôme, avec Monsieur CUINET Antoine et Monsieur AMIOTTE-SUCHET Tristan. 
+
+\subsection{Le projet}
+
+Ce projet est réalisé en java (compatible java 11) en utilisant une programmation
+objet mettant en œuvre les concepts d’héritage, de classe abstraite, d’interface, de généricité et de polymorphisme.
+\bigskip
+
+Ce projet est un exercice de programmation consistant à faire évoluer, automatiquement et au hasard, des personnages sur une grille où sont disposées des tours. 
+
+Les personnages se déplacent d'une case à la fois en suivant une direction horizontale, verticale ou diagonale quand ils sont au sol. 
+Ils rebondissent quand ils rencontrent un bord. 
+
+Quand ils arrivent sur une case contenant une tour, ils entrent dedans se mettent à se déplacer en hauteur: ils peuvent monter les étages un à un jusqu'à arriver sur le toit. S'ils y parviennent ils deviennent propriétaires de la tour. 
+Depuis le toit ils peuvent soit redescendre les étages un à un, soit sauter
+sur le toit d'une autre tour à condition d'en être propriétaire.
+
 
 \section{Choix par rapport au sujet}
 
+Le sujet de base est un jeu de stratégie où les personnages évoluent de manière aléatoire sur une grille mais il est conseillé de le modifier afin de rendre les joueurs plus \g{intelligents}.
+
+Nous avons donc implémenté une version où les personnages évoluent\dots, en respectant \textcolor{cardinal}{règles de fonctionnement à décrire}. 
+
+\textcolor{cardinal}{Actutres types d'objets à placer sur la grille à faire}.
+
+
 \section{Extensions réalisées}
 
-
-%%% 2 logos cote à cote
-% \begin{figure}[h]
-%     \begin{center}
-%     \begin{minipage}[c]{.46\linewidth}
-%     \centering \includegraphics[width=4cm]{assets/pictures/logos/logo_dklik.png}
-%     \end{minipage}
-%     \hfill
-%     \begin{minipage}[c]{.46\linewidth}
-%     \centering \includegraphics[width=4cm]{assets/pictures/logos/logo_amenothes.jpg}
-%     \end{minipage}
-%     \caption[\emph{Logos des agences}]{Logos des agences \textsc{D-Klik interactiv} et \textsc{Amenothès}.}%
-%     \label{logoagences}%
-%     \end{center}
-% \end{figure}
-% \bigskip
-
+\textcolor{cardinal}{Extensions réalisées}.
 
 % \begin{itemize}
 %     \item Le \textbf{pôle Référencement et Webmarketing}, qui a pour but de concevoir des stratégies de marketing, des campagnes influenceurs, etc et s'occupe du référencement naturel (SEO) et payant (SEA) (voir GLOSSAIRE); 
