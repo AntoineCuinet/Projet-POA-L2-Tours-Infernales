@@ -40,4 +40,16 @@ public class Direction {
 
         return true;
     }
+
+    public void rebond() {
+        this.vx = -this.vx;
+        this.vy = -this.vy;
+        this.vz = -this.vz;
+    }
+
+    public void reverse() {
+        this.vx = -this.vx;
+        this.vy = -this.vy;
+        this.vz = -this.vz;
+    }
 }

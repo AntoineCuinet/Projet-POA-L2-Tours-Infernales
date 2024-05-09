@@ -1,3 +1,4 @@
-public class Tower extends Occupant {
-    
-}
+// public class Tower {
+//     private Floor floor;
+//     private Ceil ceil;
+// }

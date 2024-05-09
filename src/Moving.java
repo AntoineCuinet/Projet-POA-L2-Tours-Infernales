@@ -1,7 +1,13 @@
 public abstract class Moving extends Occupant implements Moveable {
+    private Direction direction;
 
-    public Moving(Grid grid, Position position) {
+    public Moving(Grid grid, Position position, Direction direction) {
         super(grid, position);
+        this.direction = direction;
+    }
+
+    public Direction getVelocity() {
+        return this.direction;
     }
 
     @Override

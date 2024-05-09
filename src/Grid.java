@@ -1,14 +1,13 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Grid {
     private int width;
     private int height;
-    private List<Occupant> occupantsList;
+    private Map<Position, Occupant> occupants;
 
     private String tour = "\u25A1";
     private String tourPleine = "\u25A3";
-    private String perso = "\u263A";
     private String mur = Main.ANSI_RED + "\u2588" + Main.ANSI_RESET;
     private String murBas = Main.ANSI_RED + "\u2584" + Main.ANSI_RESET;
     private String murHaut = Main.ANSI_RED + "\u2580" + Main.ANSI_RESET;
@@ -18,7 +17,7 @@ public class Grid {
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
-        this.occupantsList = new ArrayList<Occupant>();
+        this.occupants = new HashMap<Position, Occupant>();
     }
 
     public Grid() {
@@ -26,7 +25,13 @@ public class Grid {
     }
 
     public void addOccupant(Occupant occupant) {
-        this.occupantsList.add(occupant);
+        this.occupants.put(occupant.getPosition(), occupant);
+    }
+
+    public void moveOccupant(Occupant occupant, Position position) {
+        this.occupants.remove(occupant.getPosition());
+        occupant.setPosition(position);
+        this.occupants.put(position, occupant);
     }
 
 
@@ -41,7 +46,10 @@ public class Grid {
         for (int i = 0; i < this.height; i++) {
             res += mur + " ";
             for (int j = 1; j < this.width + 1; j++) {
-                res += " " + perso + " |";
+                res += " ";
+                
+                res += Perso.toString;
+                res += " |";
             }
             res = res.substring(0, res.length() - 1);
             res += " " + mur + "\n" + mur;
