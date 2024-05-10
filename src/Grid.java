@@ -5,6 +5,7 @@ public class Grid {
     private int width;
     private int height;
     private Map<Position, Occupant> occupants;
+    private String mur = Main.ANSI_RED + "\u2588" + Main.ANSI_RESET;
 
     public Grid(int width, int height) {
         this.width = width + 2;
@@ -61,18 +62,51 @@ public class Grid {
     @Override
     public String toString() {
         String dst = "";
-        for (int i=0 ; i < this.height ; i++) {
-            for (int j=0 ; j < this.width ; j++) {
+        for (int i = 0; i < this.height; i++) {
+            if (i > 0 && i < this.height - 1) {
+                dst += mur + " ";
+            } else {
+                dst += mur;
+            }
+            for (int j = 1; j < this.width + 1; j++) {
                 Position curPos = new Position(j, i, 0);
                 if (this.occupants.containsKey(curPos)) {
-                    dst += this.occupants.get(curPos);
+                    if (this.occupants.get(curPos) instanceof Border) {
+                        dst += this.occupants.get(curPos);
+                    } else {
+                        dst += this.occupants.get(curPos) + "|";
+                    }
+                } else {
+                    dst += "   |";
                 }
-                else {
-                    dst += '.';
+                if (j > this.width - 3) {
+                    dst = dst.substring(0, dst.length() - 1);
+                    dst += ' ';
                 }
             }
-            dst += '\n';
+            dst = dst.substring(0, dst.length() - 1);
+            if(i == 0) {
+                dst += mur + '\n';
+            } else {
+                dst += " " +  "\n" + mur;
+            }
+            
+            if (i < this.height - 2) {
+                for (int j = 0; j < this.width - 2; j++) {
+                    if (i != 0) {
+                        dst += " ---";
+                    } 
+                    else {
+                        dst = dst.substring(0, dst.length() - 2);
+                    }
+                }
+            } else {
+                dst = dst.substring(0, dst.length() - 23);
+            }
+            dst += " " + mur + "\n";
         }
+        dst = dst.substring(0, dst.length() - 29);
+        dst += mur;
         return dst;
     }
 }
