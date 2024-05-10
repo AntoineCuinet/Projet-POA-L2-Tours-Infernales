@@ -55,4 +55,20 @@ public class Direction {
 
         return true;
     }
+
+    public static Direction randomDirection() {
+        Direction dir;
+        int vx;
+        int vy;
+        do {
+            vx = (int)(Math.random() * 3) - 1;
+            vy = (int)(Math.random() * 3) - 1;
+        } while (vx == 0 && vy == 0);
+        try {
+            dir = new Direction(vx, vy, 0);
+        } catch (InvalidVelocityException e) {
+            dir = null;
+        }
+        return dir;
+    }
 }

@@ -5,9 +5,9 @@ public class Perso extends Moving {
         super(grid, position, direction);
     }
 
-    // public Perso(Grid grid, Position position) {
-
-    // }
+    public Perso(Grid grid, Position position) {
+        this(grid, position, Direction.randomDirection());
+    }
 
     public void update() {
         moveTo(getTargetPosition());

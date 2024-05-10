@@ -7,9 +7,7 @@ public class Supervisor {
         this.grid = new Grid(gridWidth, gridHeight);
         this.players = new Perso[nbrPlayer];
         for (int i=0 ; i < nbrPlayer ; i++) {
-            Position pos = grid.randomFreePosition();
-            Direction dir = new Direction(randInt(-1, 1), randInt(-1, 1), 0);
-            this.players[i] = new Perso(grid, pos, dir);
+            this.players[i] = new Perso(grid, grid.randomFreePosition());
         }
         this.refreshRate = refreshRate;
     }
