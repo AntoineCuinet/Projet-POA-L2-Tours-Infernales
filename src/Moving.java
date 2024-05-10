@@ -22,7 +22,13 @@ public abstract class Moving extends Occupant implements Moveable {
 
     @Override
     public boolean moveTo(Position pos) {
-        // TODO: check and return move's validity
+        Occupant occ = getGrid().getAtPosition(pos);
+        // position already fill case
+        if (occ != null) {
+            occ.redirect(this);
+            return false;
+        }
+        // move
         this.setPosition(pos);
         return true;
     }

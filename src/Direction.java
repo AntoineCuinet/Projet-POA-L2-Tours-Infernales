@@ -29,6 +29,21 @@ public class Direction {
         return vz;
     }
 
+    public void rebond(boolean wallH, boolean wallV) {
+        if (wallH) {
+            this.vy = -this.vy;
+        }
+        if (wallV) {
+            this.vx = -this.vx;
+        }
+    }
+
+    public void reverse() {
+        this.vx = -this.vx;
+        this.vy = -this.vy;
+        this.vz = -this.vz;
+    }
+
     public static boolean checkValidity(int vx, int vy, int vz) {
         if (vx < -1 || vx > 1 || vy < -1 || vy > 1 || vz < -1 || vz > 1) {
             return false;
@@ -39,17 +54,5 @@ public class Direction {
         }
 
         return true;
-    }
-
-    public void rebond() {
-        this.vx = -this.vx;
-        this.vy = -this.vy;
-        this.vz = -this.vz;
-    }
-
-    public void reverse() {
-        this.vx = -this.vx;
-        this.vy = -this.vy;
-        this.vz = -this.vz;
     }
 }

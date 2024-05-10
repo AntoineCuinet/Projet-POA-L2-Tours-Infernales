@@ -5,9 +5,17 @@ public class Perso extends Moving {
         super(grid, position, direction);
     }
 
+    // public Perso(Grid grid, Position position) {
+
+    // }
+
+    public void update() {
+        moveTo(getTargetPosition());
+    }
+
     @Override
     public void redirect(Moving m) {
-        m.getVelocity().reverse();        
+        m.getVelocity().reverse();
     }
 
     @Override

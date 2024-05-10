@@ -1,4 +1,5 @@
 public class Main {
+    // TODO: changer la façon de gérer les couleurs
     // déclaration des couleurs utilisées pour l'affichage (pour la créativité)
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -8,8 +9,8 @@ public class Main {
     public static final String RESET_BG = "\u001B[40m";
 
 
-    public static void main(String[] args) throws InvalidVelocityException {
-        Supervisor game = new Supervisor(20, 10, 2);
-        game.play();
+    public static void main(String[] args) throws InvalidVelocityException, InterruptedException {
+        Supervisor game = new Supervisor(20, 10, 2, 500);
+        game.play(15);
     }
 }
