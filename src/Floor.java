@@ -1,4 +1,7 @@
 public class Floor extends Occupant {
+    private static final String OWNED_TOWER = "\u25A3";
+    private static final String TOWER = "\u25A1";
+
     private Tower tower;
 
     public Floor(Grid grid, Position position, Tower tower) {
@@ -39,8 +42,8 @@ public class Floor extends Occupant {
     @Override
     public String toString() {
         if (this.tower.isOwned()) {
-            return " \u25A3 ";
+            return ' ' + this.tower.getOwner().getColor() + OWNED_TOWER + Color.reset() + ' ';
         }
-        return " \u25A1 ";
+        return ' ' + TOWER + ' ';
     }
 }

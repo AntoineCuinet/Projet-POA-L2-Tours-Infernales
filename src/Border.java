@@ -2,9 +2,9 @@ public class Border extends Occupant {
     private boolean horizontal;
     private boolean vertical;
 
-    private static final String mur = Main.ANSI_RED + "\u2588" + Main.ANSI_RESET;
-    private static final String murBas = Main.ANSI_RED + "\u2584" + Main.ANSI_RESET;
-    private static final String murHaut = Main.ANSI_RED + "\u2580" + Main.ANSI_RESET;
+    private static final String mur = Color.red() + "\u2588" + Color.reset();
+    private static final String murBas = Color.red() + "\u2584" + Color.reset();
+    private static final String murHaut = Color.red() + "\u2580" + Color.reset();
 
     public Border(Grid grid, Position pos, boolean horizontal, boolean vertical) {
         super(grid, pos);

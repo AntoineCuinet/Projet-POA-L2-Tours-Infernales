@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Grid {
+    private static final String WALL = Color.red() + "\u2588" + Color.reset();
+
     private int width;
     private int height;
     private Map<Position, Occupant> occupants;
-    private String mur = Main.ANSI_RED + "\u2588" + Main.ANSI_RESET;
 
     public Grid(int width, int height) {
         this.width = width + 2;
@@ -85,9 +86,9 @@ public class Grid {
         String dst = "";
         for (int i = 0; i < this.height; i++) {
             if (i > 0 && i < this.height - 1) {
-                dst += mur + " ";
+                dst += WALL + " ";
             } else {
-                dst += mur;
+                dst += WALL;
             }
             for (int j = 1; j < this.width + 1; j++) {
                 Position curPos = new Position(j, i, 0);
@@ -107,16 +108,16 @@ public class Grid {
             }
             dst = dst.substring(0, dst.length() - 1);
             if(i == 0) {
-                dst += mur + '\n';
+                dst += WALL + '\n';
             } else {
-                dst += " " +  "\n" + mur;
+                dst += " " +  "\n" + WALL;
             }
-            
+
             if (i < this.height - 2) {
                 for (int j = 0; j < this.width - 2; j++) {
                     if (i != 0) {
                         dst += " ---";
-                    } 
+                    }
                     else {
                         dst = dst.substring(0, dst.length() - 2);
                     }
@@ -124,10 +125,10 @@ public class Grid {
             } else {
                 dst = dst.substring(0, dst.length() - 23);
             }
-            dst += " " + mur + "\n";
+            dst += " " + WALL + "\n";
         }
         dst = dst.substring(0, dst.length() - 29);
-        dst += mur;
+        dst += WALL + "\n\n";
         return dst;
     }
 }

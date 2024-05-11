@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 public class Tower {
+    private static final String FLOOR = "\u2580";
+    private static final String WALL = "\u2588";
+    private static final String CEIL = "\u25A1";
+    private static final String OWNED_CEIL = "\u25A3";
+
     private int index;
     private Floor floor;
     private Ceil ceil;
@@ -61,13 +66,18 @@ public class Tower {
         return (this.owner != null);
     }
 
-    public boolean freeToTeleport() {
-        int lastStage = this.height;
+    public boolean freeToTeleport(Perso player) {
+        // player must be the tower owner
+        if (player != getOwner()) {
+            return false;
+        }
+        // the last stage must be empty
         for (Occupant occ : this.occupantsIndoor) {
-            if (occ.getPosition().z() == lastStage) {
+            if (occ.getPosition().z() == this.height) {
                 return false;
             }
         }
+        // free
         return true;
     }
 
@@ -80,24 +90,29 @@ public class Tower {
         }
         dst += '\n';
         // graphical representation
-        dst += "^\n";
+        if (isOwned()) {
+            dst += " " + this.owner.getColor() + OWNED_CEIL + OWNED_CEIL + OWNED_CEIL + Color.reset() + " \n";
+        }
+        else {
+            dst += " " + CEIL + CEIL + CEIL + " \n";
+        }
         for (int i=this.height ; i > 0 ; i--) {
-            String icon = "|\n";
+            String stage = WALL + "   " + WALL;
             for (Occupant occ : this.occupantsIndoor) {
                 if (occ.getPosition().z() == i) {
-                    icon = occ + "\n";
+                    stage = WALL + occ + WALL;
                 }
             }
-            dst += icon;
+            dst += stage + "\n";
         }
-        dst += "\u2588\n";
+        dst += FLOOR + FLOOR + FLOOR + FLOOR + FLOOR + "\n";
         return dst;
     }
 
-    public static List<Tower> towersFreeToTeleport() {
+    public static List<Tower> towersFreeToTeleport(Perso player) {
         List<Tower> freeList = new ArrayList<Tower>();
         for (Tower tower : towersList) {
-            if (tower.freeToTeleport()) {
+            if (tower.freeToTeleport(player)) {
                 freeList.add(tower);
             }
         }
