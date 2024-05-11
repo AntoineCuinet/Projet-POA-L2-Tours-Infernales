@@ -10,6 +10,6 @@ public class Main {
 
     public static void main(String[] args) throws InvalidVelocityException, InterruptedException {
         Supervisor game = new Supervisor(10, 5, 1, 5, 500);
-        game.play(15);
+        game.play(256);
     }
 }
