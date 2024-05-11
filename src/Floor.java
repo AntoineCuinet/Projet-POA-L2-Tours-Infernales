@@ -1,20 +1,43 @@
 public class Floor extends Occupant {
+    private Tower tower;
 
-    private static final String tour = "\u25A1";
-    private static final String tourPleine = "\u25A3";
-
-    public Floor(Grid grid, Position position) {
+    public Floor(Grid grid, Position position, Tower tower) {
         super(grid, position);
-    }
-
-    @Override
-    public String toString() {
-        return tour;
+        this.tower = tower;
     }
 
     @Override
     public void redirect(Moving m) {
-        // TODO à refaire
-        m.getVelocity().reverse();
+        Position mPos = m.getPosition();
+        Direction mDir = m.getVelocity();
+        // case in
+        if (mPos.z() == 0) {
+            // get if the first floor is free
+            Position firstFloor = new Position(getPosition().x(), getPosition().y(), 1);
+            if (getGrid().getAtPosition(firstFloor) == null) {
+                // go to first floor and start ascension
+                m.setPosition(firstFloor);
+                mDir.lift();
+                this.tower.occupantIn(m);
+            }
+            else {
+                // first floor already used
+                mDir.reverse();
+            }
+        }
+        // case out
+        else {
+            Position dstPos = getGrid().randomNextToPosition(getPosition());
+            if (dstPos != null) {
+                m.setPosition(dstPos);
+                mDir.setRandom();
+                this.tower.occupantOut(m);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "#";
     }
 }

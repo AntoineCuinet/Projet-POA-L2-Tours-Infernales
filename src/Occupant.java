@@ -28,7 +28,4 @@ public abstract class Occupant implements Redirector {
         this.grid = grid;
         grid.addOccupant(this);
     }
-
-    @Override
-    public abstract String toString();
 }

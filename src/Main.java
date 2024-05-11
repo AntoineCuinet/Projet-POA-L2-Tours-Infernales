@@ -9,7 +9,7 @@ public class Main {
     public static final String RESET_BG = "\u001B[40m";
 
     public static void main(String[] args) throws InvalidVelocityException, InterruptedException {
-        Supervisor game = new Supervisor(20, 10, 2, 500);
+        Supervisor game = new Supervisor(10, 5, 1, 5, 500);
         game.play(15);
     }
 }

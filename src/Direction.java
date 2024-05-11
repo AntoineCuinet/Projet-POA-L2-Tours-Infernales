@@ -13,8 +13,10 @@ public class Direction {
         }
     }
 
-    public Direction() throws InvalidVelocityException {
-        this(0, 0, 0);
+    public Direction() {
+        this.vx = 0;
+        this.vy = 0;
+        this.vz = 0;
     }
 
     public int getVx() {
@@ -27,6 +29,14 @@ public class Direction {
 
     public int getVz() {
         return vz;
+    }
+
+    public void setRandom() {
+        this.vz = 0;
+        do {
+            this.vx = (int)(Math.random() * 3) - 1;
+            this.vy = (int)(Math.random() * 3) - 1;
+        } while (this.vx == 0 && this.vy == 0);
     }
 
     public void rebond(boolean wallH, boolean wallV) {
@@ -44,6 +54,12 @@ public class Direction {
         this.vz = -this.vz;
     }
 
+    public void lift() {
+        this.vx = 0;
+        this.vy = 0;
+        this.vz = 1;
+    }
+
     public static boolean checkValidity(int vx, int vy, int vz) {
         if (vx < -1 || vx > 1 || vy < -1 || vy > 1 || vz < -1 || vz > 1) {
             return false;
@@ -57,18 +73,8 @@ public class Direction {
     }
 
     public static Direction randomDirection() {
-        Direction dir;
-        int vx;
-        int vy;
-        do {
-            vx = (int)(Math.random() * 3) - 1;
-            vy = (int)(Math.random() * 3) - 1;
-        } while (vx == 0 && vy == 0);
-        try {
-            dir = new Direction(vx, vy, 0);
-        } catch (InvalidVelocityException e) {
-            dir = null;
-        }
+        Direction dir = new Direction();
+        dir.setRandom();
         return dir;
     }
 }

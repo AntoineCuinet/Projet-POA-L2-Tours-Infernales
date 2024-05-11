@@ -1,13 +1,20 @@
 public class Supervisor {
     private Grid grid;
     private Perso[] players;
+    private Tower[] towers;
     private int refreshRate;
 
-    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int refreshRate) throws InvalidVelocityException {
+    private static final int TOWER_MAX_HEIGHT = 5;
+
+    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int refreshRate) throws InvalidVelocityException {
         this.grid = new Grid(gridWidth, gridHeight);
         this.players = new Perso[nbrPlayer];
+        this.towers = new Tower[nbrTower];
         for (int i=0 ; i < nbrPlayer ; i++) {
             this.players[i] = new Perso(grid, grid.randomFreePosition());
+        }
+        for (int i=0 ; i < nbrTower ; i++) {
+            this.towers[i] = new Tower(grid, TOWER_MAX_HEIGHT);
         }
         this.refreshRate = refreshRate;
     }
@@ -20,11 +27,16 @@ public class Supervisor {
         Thread.sleep(this.refreshRate);
         // start game loop
         for (int i=0 ; i < nbrRound ; i++) {
-            for (Perso player : players) {
+            for (Perso player : this.players) {
                 player.update();
             }
             clearScreen();
             System.out.println(this.grid);
+            for (Tower tower : this.towers) {
+                if (!tower.isEmpty()) {
+                    System.out.println(tower);
+                }
+            }
             Thread.sleep(this.refreshRate);
         }
     }

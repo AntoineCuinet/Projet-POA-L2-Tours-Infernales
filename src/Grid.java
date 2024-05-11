@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Grid {
@@ -56,6 +58,25 @@ public class Grid {
             occ = getAtPosition(pos);
         } while (occ != null);
         return pos;
+    }
+
+    public Position randomNextToPosition(Position pos) {
+        // get free positions across
+        List<Position> freePos = new ArrayList<Position>();
+        for (int i=-1 ; i <= 1 ; i++) {
+            for (int j=-1 ; j <= 1 ; j++) {
+                Position p = new Position(pos.x()+j, pos.y()+i, pos.z());
+                if (getAtPosition(p) == null && !p.equals(pos)) {
+                    freePos.add(p);
+                }
+            }
+        }
+        // choose random pos in the set
+        if (freePos.isEmpty()) {
+            return null;
+        }
+        int posIndex = (int)(Math.random() * freePos.size());
+        return freePos.get(posIndex);
     }
 
     @Override
