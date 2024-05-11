@@ -9,7 +9,7 @@ public class Floor extends Occupant {
 
     @Override
     public String toString() {
-        return tour;
+        return ' ' + tour + ' ';
     }
 
     @Override
