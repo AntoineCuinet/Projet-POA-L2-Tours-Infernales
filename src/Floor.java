@@ -39,8 +39,8 @@ public class Floor extends Occupant {
     @Override
     public String toString() {
         if (this.tower.isOwned()) {
-            return "\u25A3";
+            return " \u25A3 ";
         }
-        return "\u25A1";
+        return " \u25A1 ";
     }
 }

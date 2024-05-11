@@ -80,7 +80,7 @@ public class Tower {
         }
         dst += '\n';
         // graphical representation
-        dst += "#\n";
+        dst += "^\n";
         for (int i=this.height ; i > 0 ; i--) {
             String icon = "|\n";
             for (Occupant occ : this.occupantsIndoor) {
@@ -90,7 +90,7 @@ public class Tower {
             }
             dst += icon;
         }
-        dst += "#\n";
+        dst += "\u2588\n";
         return dst;
     }
 

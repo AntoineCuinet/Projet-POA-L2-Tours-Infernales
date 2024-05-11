@@ -19,6 +19,12 @@ public class Border extends Occupant {
 
     @Override
     public String toString() {
-        return mur;
+        if (vertical && !horizontal) {
+            return mur;
+        } else if (horizontal && getPosition().y() == 0) {
+            return murHaut + murHaut + murHaut + murHaut;
+        } else {
+            return murBas + murBas + murBas + murBas;
+        }
     }
 }
