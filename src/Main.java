@@ -54,9 +54,9 @@ public class Main {
         System.out.println("|  $$$$$$/|  $$$$$$$| $$ | $$ | $$|  $$$$$$$      |  $$$$$$/   \\  $/  |  $$$$$$$| $$");
         System.out.println(" \\______/  \\_______/|__/ |__/ |__/ \\_______/       \\______/     \\_/    \\_______/|__/\n\n");
         // display scores
-        System.out.println("############");
-        System.out.println("# Résultat #");
-        System.out.println("############\n");
+        System.out.println("\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584");
+        System.out.println("\u2588 Résultat \u2588");
+        System.out.println("\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\n");
         for (int i=0 ; i < results.length ; i++) {
             int nbrTower = results[i].getOwnedTowers().size();
             String prompt = "\tN°" + (i+1) + " : [" + results[i] + "] | Avec " + nbrTower + " tour";
