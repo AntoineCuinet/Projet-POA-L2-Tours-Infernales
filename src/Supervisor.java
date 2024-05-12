@@ -22,14 +22,15 @@ public class Supervisor {
         this.refreshRate = refreshRate;
     }
 
-    public Perso[] play() throws InterruptedException {
+    public Perso[] play(int maxRound) throws InterruptedException {
         // first clear
         clearScreen();
         // display initial state
         System.out.println(this.grid);
         Thread.sleep(this.refreshRate);
         // start game loop
-        while (!gameFinished()) {
+        int round = 1;
+        while (!gameFinished() && (round <= maxRound || maxRound <= 0)) {
             // play round for each players
             for (Perso player : this.players) {
                 player.update();
@@ -45,6 +46,7 @@ public class Supervisor {
             }
             // sleep
             Thread.sleep(this.refreshRate);
+            round++;
         }
         // get and return players in order using heap sort
         Queue<Perso> heap = new PriorityQueue<Perso>();

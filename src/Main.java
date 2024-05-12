@@ -12,7 +12,7 @@ public class Main {
 
         // start playing
         Supervisor game = new Supervisor(5, 4, 4, 5, 500);
-        Perso[] results = game.play();
+        Perso[] results = game.play(25);
 
         // display results
         Supervisor.clearScreen();
