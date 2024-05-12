@@ -14,13 +14,14 @@ public class Ceil extends Occupant {
         boolean teleportation = (int)(Math.random()*2) == 1;
         // teleportation case (verify if m is a player)
         if (teleportation && m instanceof Perso) {
-            List<Tower> freeTowers = Tower.towersFreeToTeleport((Perso)m);
+            Perso player = (Perso)m;
+            List<Tower> freeTowers = Tower.towersFreeToTeleport(player.getOwnedTowers());
             if (!freeTowers.isEmpty()) {
                 // choose a random tower and teleport to it
                 Tower targetTower = freeTowers.get((int)(Math.random() * freeTowers.size()));
-                m.setPosition(targetTower.getLastStage());
-                this.tower.occupantOut(m);
-                targetTower.occupantIn(m);
+                player.setPosition(targetTower.getLastStage());
+                this.tower.occupantOut(player);
+                targetTower.occupantIn(player);
             }
         }
         // revert direction

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,32 +10,31 @@ public class Tower {
     private static final String CEIL = "\u25A1";
     private static final String OWNED_CEIL = "\u25A3";
 
-    private int index;
-    private Floor floor;
+    private static int nbrTower = 0;
+
+    private int num;
     private Ceil ceil;
     private int height;
     private Perso owner;
     private Set<Occupant> occupantsIndoor;
 
-    private static List<Tower> towersList = new ArrayList<Tower>();
-
     public Tower(Grid grid, int maxHeight) {
         this.occupantsIndoor = new HashSet<Occupant>();
         this.owner = null;
+        // get index
+        nbrTower++;
+        this.num = nbrTower;
         // check max height validity
         if (maxHeight < 1) {
             maxHeight = 1;
         }
         // determine position
         Position floorPos = grid.randomFreePosition();
-        this.floor = new Floor(grid, floorPos, this);
+        new Floor(grid, floorPos, this);
         // get a random height
         this.height = (int)(Math.random() * maxHeight) + 1;
         Position ceilPos = new Position(floorPos.x(), floorPos.y(), this.height+1);
         this.ceil = new Ceil(grid, ceilPos, this);
-        // add to tower list
-        this.index = towersList.size();
-        towersList.add(this);
     }
 
     public Position getLastStage() {
@@ -59,6 +59,10 @@ public class Tower {
     }
 
     public void setOwner(Perso newOwner) {
+        if (isOwned()) {
+            this.owner.leaveTower(this);
+        }
+        newOwner.takeTower(this);
         this.owner = newOwner;
     }
 
@@ -66,11 +70,7 @@ public class Tower {
         return (this.owner != null);
     }
 
-    public boolean freeToTeleport(Perso player) {
-        // player must be the tower owner
-        if (player != getOwner()) {
-            return false;
-        }
+    public boolean freeToTeleport() {
         // the last stage must be empty
         for (Occupant occ : this.occupantsIndoor) {
             if (occ.getPosition().z() == this.height) {
@@ -84,7 +84,7 @@ public class Tower {
     @Override
     public String toString() {
         // head
-        String dst = "Tour " + String.valueOf(this.index+1);
+        String dst = "Tour " + String.valueOf(this.num);
         if (isOwned()) {
             dst += " [" + getOwner() + "]";
         }
@@ -109,10 +109,10 @@ public class Tower {
         return dst;
     }
 
-    public static List<Tower> towersFreeToTeleport(Perso player) {
+    public static List<Tower> towersFreeToTeleport(Collection<Tower> towersList) {
         List<Tower> freeList = new ArrayList<Tower>();
         for (Tower tower : towersList) {
-            if (tower.freeToTeleport(player)) {
+            if (tower.freeToTeleport()) {
                 freeList.add(tower);
             }
         }

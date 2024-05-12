@@ -1,3 +1,6 @@
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class Supervisor {
     private Grid grid;
     private Perso[] players;
@@ -19,26 +22,48 @@ public class Supervisor {
         this.refreshRate = refreshRate;
     }
 
-    public void play(int nbrRound) throws InterruptedException {
+    public Perso[] play() throws InterruptedException {
         // first clear
         clearScreen();
         // display initial state
         System.out.println(this.grid);
         Thread.sleep(this.refreshRate);
         // start game loop
-        for (int i=0 ; i < nbrRound ; i++) {
+        while (!gameFinished()) {
+            // play round for each players
             for (Perso player : this.players) {
                 player.update();
             }
             clearScreen();
+            // display grid
             System.out.println(this.grid);
+            // display non empty towers
             for (Tower tower : this.towers) {
                 if (!tower.isEmpty()) {
                     System.out.println(tower);
                 }
             }
+            // sleep
             Thread.sleep(this.refreshRate);
         }
+        // get and return players in order using heap sort
+        Queue<Perso> heap = new PriorityQueue<Perso>();
+        for (Perso player : this.players) {
+            heap.add(player);
+        }
+        for (int i=this.players.length-1 ; i >= 0 ; i--) {
+            this.players[i] = heap.poll();
+        }
+        return this.players;
+    }
+
+    public boolean gameFinished() {
+        for (Tower tower : this.towers) {
+            if (!tower.isOwned()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void clearScreen() {
@@ -47,7 +72,6 @@ public class Supervisor {
             System.out.flush();
         }
     }
-    
 
     public static int randInt(int max) {
         return (int)(Math.random() * max);
