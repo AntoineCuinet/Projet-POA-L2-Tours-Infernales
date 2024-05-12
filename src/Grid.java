@@ -108,7 +108,8 @@ public class Grid {
             }
             dst = dst.substring(0, dst.length() - 1);
             if(i == 0) {
-                dst += WALL + '\n';
+                dst = dst.substring(0, dst.length() - 10);
+                dst += "\n";
             } else {
                 dst += " " +  "\n" + WALL;
             }
