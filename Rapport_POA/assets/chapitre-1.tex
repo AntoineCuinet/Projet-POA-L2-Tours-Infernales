@@ -1,4 +1,4 @@
-\chapter[~~~PRÉSENTATION DE L'APPLICATION]{~~~I -~Présentation de l'application}%
+\chapter[~~~PRÉSENTATION]{~~~I -~Présentation de l'application}%
 \label{refDev1}%
 
 Ce premier chapitre présente l'application \nom\~et son contexte. Il détaille le sujet du projet, les choix réalisés par rapport à ce dernier et les extensions effectuées.
@@ -7,7 +7,7 @@ Ce premier chapitre présente l'application \nom\~et son contexte. Il détaille 
 \subsection{Introduction}
 
 Ce projet est un projet de fin de seconde année de licence d'informatique au sein de l'université de Franche-comté, dans l'unité d'enseignement Programmation Objet Avancée.
-Le projet a été réalisé en binôme, avec Monsieur CUINET Antoine et Monsieur AMIOTTE-SUCHET Tristan. 
+Le projet a été réalisé en binôme, avec Monsieur CUINET Antoine et Monsieur AMIOTTE-SUCHET Tristan, des étudiants passionnés.
 
 \subsection{Le projet}
 
@@ -24,23 +24,42 @@ Quand ils arrivent sur une case contenant une tour, ils entrent dedans se metten
 Depuis le toit ils peuvent soit redescendre les étages un à un, soit sauter
 sur le toit d'une autre tour à condition d'en être propriétaire.
 
-
 \section{Choix par rapport au sujet}
 
-Le sujet de base est un jeu de stratégie où les personnages évoluent de manière aléatoire sur une grille mais il est conseillé de le modifier afin de rendre les joueurs plus \g{intelligents}.
+Par rapport au sujet, nous avons réalisé tout ce qui était demandé, à savoir:
 
-Nous avons donc implémenté une version où les personnages évoluent\dots, en respectant \textcolor{cardinal}{règles de fonctionnement à décrire}. 
+\begin{itemize}
+    \item La rencontre avec un autre personnage.
+    \item La rencontre avec un bord.
+    \item La rencontre avec une tour:
+    \begin{itemize}
+        \item L'entrée dans la tour depuis le sol.
+        \item La sortie de la tour par le sol.
+        \item La sortie de la tour par le toit.
+    \end{itemize}
+\end{itemize}
+\bigskip
 
-\textcolor{cardinal}{Actutres types d'objets à placer sur la grille à faire}.
-
+Nous avons également pris soin de réspecter toutes les règles obligatoires d'implantation du sujet, sur les occupants, les positions, les directions, les redirection à la demande ainsi que sur les interfaces à implanter.
 
 \section{Extensions réalisées}
 
-\textcolor{cardinal}{Extensions réalisées}.
+Le sujet de base est un jeu de stratégie où des personnages évoluent de manière aléatoire sur une grille.
 
-% \begin{itemize}
-%     \item Le \textbf{pôle Référencement et Webmarketing}, qui a pour but de concevoir des stratégies de marketing, des campagnes influenceurs, etc et s'occupe du référencement naturel (SEO) et payant (SEA) (voir GLOSSAIRE); 
-%     \item Le \textbf{pôle Web}, s'occupant de la création de sites web e-commerce dans le domaine de l'automobile, du sport et autres, en les intrégrant avec du HTML, du CSS et du JavaScript\footnote{Ce sont des languages de programmation pour le web, voir GLOSSAIRE.};
-%     \item Le \textbf{pôle Web-Applicatif}, chargé de la réalisation de sites web e-commerce spécialiste dans les réseaux de transport et dans le tourisme. Les sites sont produits avec le framework\footnote{Ensemble d'outils, voir GLOSSAIRE.} \textsc{Symfony}\footnote{Framework PHP\cite{symfony}.} 
-%     mais aussi avec les CMS\footnote{Logiciel en ligne pour créer un site web, voir GLOSSAIRE.} \wpress\~\footnote{Le CMS le plus utilisé\cite{wordpress}.} ou encore \textsc{Typo3}\footnote{Un autre CMS utilisé chez \nom\~\cite{typo3}.}.
-% \end{itemize}
+Nous avons réalisé plusieurs extensions par rapport au sujet de base, à savoir:
+
+\begin{itemize}
+    \item Des menus:
+    \begin{itemize}
+        \item Un menu de lancement du jeu, afin de le présenter.
+        \item Un menu indiquant la fin du jeu et affichant les scores des différents joueurs.
+    \end{itemize}
+    \item Des personnages:
+    \begin{itemize}
+        \item \textcolor{cardinal}{perso}.
+        \item \textcolor{cardinal}{perso}.
+    \end{itemize}
+\end{itemize}
+\bigskip
+
+Nous avons donc implémenté une version où les joueurs évoluent de manière aléatoire sur une grille, mais avec des fonctionnalités supplémentaires, comme la rencontre avec les autres personnages.
