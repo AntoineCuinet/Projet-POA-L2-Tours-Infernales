@@ -1,3 +1,7 @@
+/**
+ * Provides ANSI color codes for text formatting.
+ * This class is abstract and cannot be instantiated directly. It's a singleton.
+ */
 public abstract class Color {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String[] ANSI_COLORS = {

@@ -13,6 +13,9 @@ public class Main {
         displayGameOver(results);
     }
 
+    /**
+     * Displays the game menu.
+     */
     public static void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         Supervisor.clearScreen();
@@ -45,6 +48,11 @@ public class Main {
         Supervisor.clearScreen();
     }
 
+    /**
+     * Displays the game over screen with results.
+     *
+     * @param results The game's results to display.
+     */
     public static void displayGameOver(Perso[] results) {
         Supervisor.clearScreen();
         System.out.print(Color.red());
@@ -80,8 +88,12 @@ public class Main {
         System.out.print(Color.reset());
     }
 
+    /**
+     * Waits for the user to press Enter.
+     *
+     * @param scanner The scanner object to use for input.
+     */
     public static void waitForEnter(Scanner scanner) {
-        // Attend que l'utilisateur appuie sur Entrée
         scanner.nextLine();
     }
 }

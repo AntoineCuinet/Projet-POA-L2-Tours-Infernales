@@ -3,13 +3,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a grid containing occupants in a 3D space.
+ */
 public class Grid {
-    private static final String WALL = Color.red() + "\u2588" + Color.reset();
+    private static final String WALL = Color.red() + "\u2588" + Color.reset(); // Unicode symbol for a wall
 
     private int width;
     private int height;
     private Map<Position, Occupant> occupants;
 
+    /**
+     * Constructs a new Grid object with the specified width and height.
+     *
+     * @param width  The width of the grid.
+     * @param height The height of the grid.
+     */
     public Grid(int width, int height) {
         this.width = width + 2;
         this.height = height + 2; // add two to take care about border
@@ -29,29 +38,60 @@ public class Grid {
         }
     }
 
+    /**
+     * Constructs a new Grid object with default width and height.
+     * Default width is 20 and default height is 10.
+     */
     public Grid() {
         this(20, 10);
     }
 
+    /**
+     * Adds an occupant to the grid.
+     *
+     * @param occupant The occupant to add.
+     */
     public void addOccupant(Occupant occupant) {
         this.occupants.put(occupant.getPosition(), occupant);
     }
 
+    /**
+     * Take in account the movement of an occupant
+     *
+     * @param occupant The occupant to move.
+     * @param position The new position of the occupant.
+     */
     public void moveOccupant(Occupant occupant, Position position) {
         this.occupants.remove(occupant.getPosition());
         this.occupants.put(position, occupant);
     }
 
+    /**
+     * Gets the occupant at the specified position in the grid.
+     *
+     * @param pos The position to check.
+     * @return The occupant at the specified position, or null if no occupant is present.
+     */
     public Occupant getAtPosition(Position pos) {
         return this.occupants.get(pos);
     }
 
+    /**
+     * Generates a random indoor position within the grid.
+     *
+     * @return A random indoor position within the grid.
+     */
     public Position randomIndoorPosition() {
         int x = (int)(Math.random() * (width-2)) + 1;
         int y = (int)(Math.random() * (height-2)) + 1;
         return new Position(x, y, 0);
     }
 
+    /**
+     * Generates a random free position within the grid.
+     *
+     * @return A random free position within the grid.
+     */
     public Position randomFreePosition() {
         Position pos;
         Occupant occ;
@@ -62,6 +102,12 @@ public class Grid {
         return pos;
     }
 
+    /**
+     * Generates a random free position adjacent to the specified position.
+     *
+     * @param pos The position to find adjacent positions.
+     * @return A random free position adjacent to the specified position, or null if no adjacent position is free.
+     */
     public Position randomNextToPosition(Position pos) {
         // get free positions across
         List<Position> freePos = new ArrayList<Position>();
@@ -81,6 +127,11 @@ public class Grid {
         return freePos.get(posIndex);
     }
 
+    /**
+     * Returns a string representation of the grid.
+     *
+     * @return The string representation of the grid.
+     */
     @Override
     public String toString() {
         String dst = "";

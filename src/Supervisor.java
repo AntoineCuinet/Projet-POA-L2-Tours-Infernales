@@ -1,6 +1,9 @@
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * Represents a supervisor managing the game environment and player interactions.
+ */
 public class Supervisor {
     private Grid grid;
     private Perso[] players;
@@ -9,6 +12,16 @@ public class Supervisor {
 
     private static final int TOWER_MAX_HEIGHT = 5;
 
+    /**
+     * Constructs a new Supervisor object with the specified parameters.
+     *
+     * @param gridWidth     The width of the grid.
+     * @param gridHeight    The height of the grid.
+     * @param nbrPlayer     The number of player characters.
+     * @param nbrTower      The number of towers.
+     * @param refreshRate   The refresh rate for updating the game state.
+     * @throws InvalidVelocityException If an invalid velocity is encountered.
+     */
     public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int refreshRate) throws InvalidVelocityException {
         this.grid = new Grid(gridWidth, gridHeight);
         this.players = new Perso[nbrPlayer];
@@ -22,6 +35,13 @@ public class Supervisor {
         this.refreshRate = refreshRate;
     }
 
+    /**
+     * Play the game for a max specified number of rounds.
+     *
+     * @param maxRound The maximum number of rounds to play. Use 0 or a negative number for unlimited rounds.
+     * @return An array containing the player characters sorted by the number of towers they own in descending order.
+     * @throws InterruptedException If the thread is interrupted while sleeping.
+     */
     public Perso[] play(int maxRound) throws InterruptedException {
         // first clear
         clearScreen();
@@ -59,6 +79,11 @@ public class Supervisor {
         return this.players;
     }
 
+    /**
+     * Checks if the game has finished. Get if all towers are occupied.
+     *
+     * @return True if all towers are owned, otherwise false.
+     */
     public boolean gameFinished() {
         for (Tower tower : this.towers) {
             if (!tower.isOwned()) {
@@ -68,6 +93,9 @@ public class Supervisor {
         return true;
     }
 
+    /**
+     * Clears the console screen.
+     */
     public static void clearScreen() {
         for (int i=0 ; i < 10 ; i++) {
             System.out.print("\033[H\033[2J");
@@ -75,10 +103,23 @@ public class Supervisor {
         }
     }
 
+    /**
+     * Generates a random integer between 0 (inclusive) and the specified maximum value (exclusive).
+     *
+     * @param max The maximum value (exclusive).
+     * @return A random integer.
+     */
     public static int randInt(int max) {
         return (int)(Math.random() * max);
     }
 
+    /**
+     * Generates a random integer between the specified minimum and maximum values (both inclusive).
+     *
+     * @param min The minimum value (inclusive).
+     * @param max The maximum value (inclusive).
+     * @return A random integer.
+     */
     public static int randInt(int min, int max) {
         return (int)(Math.random() * (max-min+1)) + min;
     }

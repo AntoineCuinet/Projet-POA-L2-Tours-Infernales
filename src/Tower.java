@@ -4,13 +4,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Represents a tower within the game environment.
+ */
 public class Tower {
     private static final String FLOOR = "\u2580";
     private static final String WALL = "\u2588";
     private static final String CEIL = "\u25A1";
     private static final String OWNED_CEIL = "\u25A3";
 
-    private static int nbrTower = 0;
+    private static int nbrTower = 0; // Number of towers created
 
     private int num;
     private Ceil ceil;
@@ -18,6 +21,12 @@ public class Tower {
     private Perso owner;
     private Set<Occupant> occupantsIndoor;
 
+    /**
+     * Constructs a new Tower object with the specified grid and maximum height.
+     *
+     * @param grid      The grid in which the tower will be placed.
+     * @param maxHeight The maximum height of the tower.
+     */
     public Tower(Grid grid, int maxHeight) {
         this.occupantsIndoor = new HashSet<Occupant>();
         this.owner = null;
@@ -37,27 +46,57 @@ public class Tower {
         this.ceil = new Ceil(grid, ceilPos, this);
     }
 
+    /**
+     * Gets the position of the last stage of the tower.
+     *
+     * @return The position of the last stage.
+     */
     public Position getLastStage() {
         Position ceilPos = this.ceil.getPosition();
         return new Position(ceilPos.x(), ceilPos.y(), ceilPos.z() - 1);
     }
 
+    /**
+     * Adds an occupant to the tower.
+     *
+     * @param player The occupant to add.
+     */
     public void occupantIn(Occupant player) {
         this.occupantsIndoor.add(player);
     }
 
+    /**
+     * Removes an occupant from the tower.
+     *
+     * @param player The occupant to remove.
+     */
     public void occupantOut(Occupant player) {
         this.occupantsIndoor.remove(player);
     }
 
+    /**
+     * Checks if the tower is empty (has no occupants).
+     *
+     * @return True if the tower is empty, otherwise false.
+     */
     public boolean isEmpty() {
         return this.occupantsIndoor.isEmpty();
     }
 
+    /**
+     * Gets the owner of the tower.
+     *
+     * @return The owner of the tower, null if the tower isn't owned.
+     */
     public Perso getOwner() {
         return this.owner;
     }
 
+    /**
+     * Sets the owner of the tower.
+     *
+     * @param newOwner The new owner of the tower.
+     */
     public void setOwner(Perso newOwner) {
         if (isOwned()) {
             this.owner.leaveTower(this);
@@ -66,10 +105,20 @@ public class Tower {
         this.owner = newOwner;
     }
 
+    /**
+     * Checks if the tower is owned by a player.
+     *
+     * @return True if the tower is owned, otherwise false.
+     */
     public boolean isOwned() {
         return (this.owner != null);
     }
 
+    /**
+     * Checks if the tower is free for teleportation (last stage is empty).
+     *
+     * @return True if the tower is free for teleportation, otherwise false.
+     */
     public boolean freeToTeleport() {
         // the last stage must be empty
         for (Occupant occ : this.occupantsIndoor) {
@@ -81,6 +130,11 @@ public class Tower {
         return true;
     }
 
+    /**
+     * Returns a string representation of the tower.
+     *
+     * @return The string representation of the tower.
+     */
     @Override
     public String toString() {
         // head
@@ -109,6 +163,12 @@ public class Tower {
         return dst;
     }
 
+    /**
+     * Returns a list of towers that are free for teleportation from the given collection.
+     *
+     * @param towersList The collection of towers to check.
+     * @return A list of towers that are free for teleportation.
+     */
     public static List<Tower> towersFreeToTeleport(Collection<Tower> towersList) {
         List<Tower> freeList = new ArrayList<Tower>();
         for (Tower tower : towersList) {

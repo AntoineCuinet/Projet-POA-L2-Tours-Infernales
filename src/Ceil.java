@@ -1,13 +1,28 @@
 import java.util.List;
 
+/**
+ * Represents a ceiling object of a tower in a grid.
+ */
 public class Ceil extends Occupant {
     private Tower tower;
 
+    /**
+     * Constructs a new Ceil object with the specified parameters.
+     *
+     * @param grid     The grid in which the ceiling exists.
+     * @param position The position of the ceiling in the grid.
+     * @param tower    The tower who own the ceiling.
+     */
     public Ceil(Grid grid, Position position, Tower tower) {
         super(grid, position);
         this.tower = tower;
     }
 
+    /**
+     * Redirects the movement of an object when it encounters the ceiling.
+     *
+     * @param m The object whose movement needs to be redirected.
+     */
     @Override
     public void redirect(Moving m) {
         // choose between reverse dir and teleportation
