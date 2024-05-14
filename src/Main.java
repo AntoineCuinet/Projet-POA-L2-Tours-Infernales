@@ -77,10 +77,9 @@ public class Main {
             int nbrTower = results[i].getOwnedTowers().size();
             String prompt = "█ " + Color.reset() + "\t\t\t     N°" + (i+1) + " : [" + results[i] + "] | Avec " + nbrTower + " tour";
             if (nbrTower > 1) {
-                prompt += 's' + Color.red() + "\t\t\t          █";
-            } else {
-                prompt += Color.red() + "\t\t\t          █";
+                prompt += 's';
             }
+            prompt += Color.red() + "\t\t\t          █";
             System.out.println(prompt);
         }
         System.out.println("█                                                                                 █");
