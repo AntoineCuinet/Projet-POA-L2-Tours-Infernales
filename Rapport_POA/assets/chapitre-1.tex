@@ -53,13 +53,29 @@ Nous avons réalisé plusieurs extensions par rapport au sujet de base, à savoi
     \begin{itemize}
         \item Un menu de lancement du jeu, afin de le présenter.
         \item Un menu indiquant la fin du jeu et affichant les scores des différents joueurs.
-    \end{itemize}
+    \end{itemize} 
+
+    \item Des affichages:
+    \begin{itemize}
+        \item Un affichage des tours possédées par les joueurs en temps réel.
+        \item Un affichage complet en couleur, avec les bord en rouge, les joueurs ayant tous une couelurs différentes (jusqu'a 6 couleurs différentes pour les joueurs) et les tours possédées ont la couleur du joueur qui la possède.
+    \end{itemize} 
+
     \item Des personnages:
     \begin{itemize}
         \item \textcolor{cardinal}{perso}.
         \item \textcolor{cardinal}{perso}.
     \end{itemize}
+
+    \item Autres extensions:
+    \begin{itemize}
+        \item Une boucle de jeu permettant de relancer une nouvelle partie à la fin de la partie précédente, si le joueur le souhaite, ou de quitter le jeu.
+        \item Un nombre de manches maximum à jouer, afin de déterminer le vainqueur avant que toutes les tours ne soient prises (ce nombre est réglé sur 50 par défaut mais peut être modifié dans la classe \textit{Main}), si toutes les tours sont prises avant la fin du nombre maximum de manche, la partie s'arrête.
+    \end{itemize}
 \end{itemize}
 \bigskip
 
-Nous avons donc implémenté une version où les joueurs évoluent de manière aléatoire sur une grille, mais avec des fonctionnalités supplémentaires, comme la rencontre avec les autres personnages.
+Le nombre de personnages, de tours, le temps d'une manche (en millisecondes), le nombres de manches, la taille de la grille\dots peuvent être modifiés dans la classe \textit{Main} (un commentaire indique le lieu de modification).
+\bigskip
+
+Nous avons donc implémenté une version avec de nombreuses fonctionnalités supplémentaires afin de rendre le jeu plus intuitif et plus complet.
