@@ -2,50 +2,57 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InvalidVelocityException, InterruptedException {
-        // display initial screen
+        // get scanner for user inputs
+        Scanner scanner = new Scanner(System.in);
+
+        // display initial screen and wait user interaction
         displayMenu();
+        waitForEnter(scanner);
 
-        // start playing
-        Supervisor game = new Supervisor(10, 5, 5, 5, 500);
-        Perso[] results = game.play(50);
+        // MAIN LOOP PROCESS
+        do {
+            // start playing
+            Supervisor game = new Supervisor(10, 5, 5, 5, 500);
+            Perso[] results = game.play(5);
+            // display results
+            displayGameOver(results);
+        } while (askForContinue(scanner));
 
-        // display results
-        displayGameOver(results);
+        // close scanner
+        scanner.close();
     }
 
     /**
      * Displays the game menu.
      */
     public static void displayMenu() {
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         Supervisor.clearScreen();
-        System.out.print(Color.red());
-        System.out.println("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█");
-        System.out.println("█                                                                                 █");
-        System.out.println("█     ██╗     ███████╗███████╗    ████████╗ ██████╗ ██╗   ██╗██████╗ ███████╗     █");
-        System.out.println("█     ██║     ██╔════╝██╔════╝    ╚══██╔══╝██╔═══██╗██║   ██║██╔══██╗██╔════╝     █");
-        System.out.println("█     ██║     █████╗  ███████╗       ██║   ██║   ██║██║   ██║██████╔╝███████╗     █");
-        System.out.println("█     ██║     ██╔══╝  ╚════██║       ██║   ██║   ██║██║   ██║██╔══██╗╚════██║     █");
-        System.out.println("█     ███████╗███████╗███████║       ██║   ╚██████╔╝╚██████╔╝██║  ██║███████║     █");
-        System.out.println("█     ╚══════╝╚══════╝╚══════╝       ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝     █");
-        System.out.println("█                                                                                 █");
-        System.out.println("█ ██╗███╗   ██╗███████╗███████╗██████╗ ███╗   ██╗ █████╗ ██╗     ███████╗███████╗ █");
-        System.out.println("█ ██║████╗  ██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗██║     ██╔════╝██╔════╝ █");
-        System.out.println("█ ██║██╔██╗ ██║█████╗  █████╗  ██████╔╝██╔██╗ ██║███████║██║     █████╗  ███████╗ █");
-        System.out.println("█ ██║██║╚██╗██║██╔══╝  ██╔══╝  ██╔══██╗██║╚██╗██║██╔══██║██║     ██╔══╝  ╚════██║ █");
-        System.out.println("█ ██║██║ ╚████║██║     ███████╗██║  ██║██║ ╚████║██║  ██║███████╗███████╗███████║ █");
-        System.out.println("█ ╚═╝╚═╝  ╚═══╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ █");
-        System.out.println("█                                                                                 █");
-        System.out.println("█                                                                                 █");
-        System.out.println("█                  Bienvenue dans le jeu des tours infernales !                   █");
-        System.out.println("█                    Appuyez sur Entrée pour commencer le jeu.                    █");
-        System.out.println("█                                                                                 █");
-        System.out.println("█                                                                                 █");
-        System.out.println("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█");
-        System.out.print(Color.reset());
-        waitForEnter(scanner);
-        scanner.close();
-        Supervisor.clearScreen();
+        String dst = Color.red();
+        dst += "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n";
+        dst += "█                                                                                 █\n";
+        dst += "█     ██╗     ███████╗███████╗    ████████╗ ██████╗ ██╗   ██╗██████╗ ███████╗     █\n";
+        dst += "█     ██║     ██╔════╝██╔════╝    ╚══██╔══╝██╔═══██╗██║   ██║██╔══██╗██╔════╝     █\n";
+        dst += "█     ██║     █████╗  ███████╗       ██║   ██║   ██║██║   ██║██████╔╝███████╗     █\n";
+        dst += "█     ██║     ██╔══╝  ╚════██║       ██║   ██║   ██║██║   ██║██╔══██╗╚════██║     █\n";
+        dst += "█     ███████╗███████╗███████║       ██║   ╚██████╔╝╚██████╔╝██║  ██║███████║     █\n";
+        dst += "█     ╚══════╝╚══════╝╚══════╝       ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝     █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█ ██╗███╗   ██╗███████╗███████╗██████╗ ███╗   ██╗ █████╗ ██╗     ███████╗███████╗ █\n";
+        dst += "█ ██║████╗  ██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗██║     ██╔════╝██╔════╝ █\n";
+        dst += "█ ██║██╔██╗ ██║█████╗  █████╗  ██████╔╝██╔██╗ ██║███████║██║     █████╗  ███████╗ █\n";
+        dst += "█ ██║██║╚██╗██║██╔══╝  ██╔══╝  ██╔══██╗██║╚██╗██║██╔══██║██║     ██╔══╝  ╚════██║ █\n";
+        dst += "█ ██║██║ ╚████║██║     ███████╗██║  ██║██║ ╚████║██║  ██║███████╗███████╗███████║ █\n";
+        dst += "█ ╚═╝╚═╝  ╚═══╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█                  Bienvenue dans le jeu des tours infernales !                   █\n";
+        dst += "█                    Appuyez sur Entrée pour commencer le jeu.                    █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n";
+        dst += Color.reset();
+        System.out.print(dst);
     }
 
     /**
@@ -55,37 +62,37 @@ public class Main {
      */
     public static void displayGameOver(Perso[] results) {
         Supervisor.clearScreen();
-        System.out.print(Color.red());
-        System.out.println("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█");
-        System.out.println("█                                                                                 █");
-        System.out.println("█                           ███████╗ ██╗ ███╗   ██╗                               █");
-        System.out.println("█                           ██╔════╝ ██║ ████╗  ██║                               █");
-        System.out.println("█                           █████╗   ██║ ██╔██╗ ██║                               █");
-        System.out.println("█                           ██╔══╝   ██║ ██║╚██╗██║                               █");
-        System.out.println("█                           ██║      ██║ ██║ ╚████║ ██╗                           █");
-        System.out.println("█                           ╚═╝      ╚═╝ ╚═╝  ╚═══╝ ╚═╝                           █");
-        System.out.println("█                                                                                 █");
+        String dst = Color.red();
+        dst += "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n";
+        dst += "█                                                                                 █\n";
+        dst += "█                           ███████╗ ██╗ ███╗   ██╗                               █\n";
+        dst += "█                           ██╔════╝ ██║ ████╗  ██║                               █\n";
+        dst += "█                           █████╗   ██║ ██╔██╗ ██║                               █\n";
+        dst += "█                           ██╔══╝   ██║ ██║╚██╗██║                               █\n";
+        dst += "█                           ██║      ██║ ██║ ╚████║ ██╗                           █\n";
+        dst += "█                           ╚═╝      ╚═╝ ╚═╝  ╚═══╝ ╚═╝                           █\n";
+        dst += "█                                                                                 █\n";
+        dst += "█                    ____   __            _ _        _                            █\n";
+        dst += "█                   |  _ \\ /_/  ___ _   _| | |_ __ _| |_ ___                      █\n";
+        dst += "█                   | |_) / _ \\/ __| | | | | __/ _` | __/ __|                     █\n";
+        dst += "█                   |  _ <  __/\\__ \\ |_| | | || (_| | |_\\__ \\                     █\n";
+        dst += "█                   |_| \\_\\___||___/\\__,_|_|\\__\\__,_|\\__|___/                     █\n";
+        dst += "█                                                                                 █\n";
         // display scores
-        System.out.println("█                    ____   __            _ _        _                            █");
-        System.out.println("█                   |  _ \\ /_/  ___ _   _| | |_ __ _| |_ ___                      █");
-        System.out.println("█                   | |_) / _ \\/ __| | | | | __/ _` | __/ __|                     █");
-        System.out.println("█                   |  _ <  __/\\__ \\ |_| | | || (_| | |_\\__ \\                     █");
-        System.out.println("█                   |_| \\_\\___||___/\\__,_|_|\\__\\__,_|\\__|___/                     █");
-        System.out.println("█                                                                                 █");
-
         for (int i=0 ; i < results.length ; i++) {
             int nbrTower = results[i].getOwnedTowers().size();
             String prompt = "█ " + Color.reset() + "\t\t\t     N°" + (i+1) + " : [" + results[i] + "] | Avec " + nbrTower + " tour";
             if (nbrTower > 1) {
-                prompt += 's' + Color.red() + "\t\t\t          █";
+                prompt += 's' + Color.red() + "\t\t\t          █\n";
             } else {
-                prompt += Color.red() + "\t\t\t          █";
+                prompt += Color.red() + "\t\t\t          █\n";
             }
-            System.out.println(prompt);
+            dst += prompt;
         }
-        System.out.println("█                                                                                 █");
-        System.out.println("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█");
-        System.out.print(Color.reset());
+        dst += "█                                                                                 █\n";
+        dst += "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n";
+        dst += Color.reset();
+        System.out.print(dst);
     }
 
     /**
@@ -95,5 +102,13 @@ public class Main {
      */
     public static void waitForEnter(Scanner scanner) {
         scanner.nextLine();
+    }
+
+    public static boolean askForContinue(Scanner scanner) {
+        // ask the user to continue or not
+        System.out.print("\n\nVoulez-vous jouer une nouvelle partie [y/N]: ");
+        // wait for the user answer and return it
+        String answer = scanner.nextLine();
+        return answer.equals("y") || answer.equals("o");
     }
 }
