@@ -11,9 +11,14 @@ public class Main {
 
         // MAIN LOOP PROCESS
         do {
-            // start playing
+
+              /*******************************************************/
+             /**  Modifications here for grid, players, towers...  **/
+            /*******************************************************/
             Supervisor game = new Supervisor(10, 5, 5, 5, 500);
-            Perso[] results = game.play(5);
+            Perso[] results = game.play(50);
+
+            
             // display results
             displayGameOver(results);
         } while (askForContinue(scanner));
