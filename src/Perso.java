@@ -16,6 +16,7 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
     private String icon;
     private String color;
     private Set<Tower> ownedTowers;
+    private int freezeCount;
 
     /**
      * Constructs a new Perso object with the specified grid, position, and direction.
@@ -100,6 +101,11 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         this.state = State.EXPLODE;
     }
 
+    public void freeze() {
+        this.state = State.FREEZE;
+        this.freezeCount = 6;
+    }
+
     /**
      * Method that has to be executed in each rounds.
      * Execute the player behaviour function of its state
@@ -109,6 +115,13 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         // alive case
         if (this.state == State.ALIVE) {
             moveTo(getTargetPosition());
+        }
+        // freeze case
+        else if (this.state == State.FREEZE) {
+            this.freezeCount--;
+            if (this.freezeCount == 0) {
+                this.state = State.ALIVE;
+            }
         }
         // explosion case
         else if (this.state == State.EXPLODE) {
@@ -138,6 +151,9 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
      */
     @Override
     public String toString() {
+        if (this.state == State.FREEZE) {
+            return ' ' + this.icon + ' ';
+        }
         return ' ' + this.color + this.icon + Color.reset() + ' ';
     }
 

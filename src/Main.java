@@ -17,7 +17,7 @@ public class Main {
                   /*******************************************************/
                  /**  Modifications here for grid, players, towers...  **/
                 /*******************************************************/
-                game = new Supervisor(6, 6, 5, 5, 500);
+                game = new Supervisor(6, 6, 6, 5, 5, 400);
             } catch (NotEnoughPlaceException e) {
                 Supervisor.clearScreen();
                 System.err.println("Pas assez de place disponible sur la grille pour le nombre d'éléments spécifié !");

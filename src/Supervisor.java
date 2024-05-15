@@ -22,9 +22,10 @@ public class Supervisor {
      * @param gridHeight    The height of the grid.
      * @param nbrPlayer     The number of player characters.
      * @param nbrTower      The number of towers.
+     * @param nbrSnowman    The number of snowmans.
      * @param refreshRate   The refresh rate for updating the game state.
      */
-    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int refreshRate) throws IllegalArgumentException, NotEnoughPlaceException {
+    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int nbrSnowman, int refreshRate) throws IllegalArgumentException, NotEnoughPlaceException {
         // args check
         int maxPlayer = Color.array().length;
         if (nbrPlayer < 1 || nbrPlayer > maxPlayer) {
@@ -43,7 +44,7 @@ public class Supervisor {
         this.towers = new Tower[nbrTower];
         this.refreshRate = refreshRate;
         // create meteor rain
-        this.actives.add(new MeteorRain(grid, 0.8));
+        this.actives.add(new MeteorRain(grid, 0.7));
         // create players
         for (int i=0 ; i < nbrPlayer ; i++) {
             this.players[i] = new Perso(grid, grid.randomEmptyPosition());
@@ -52,6 +53,10 @@ public class Supervisor {
         // create towers
         for (int i=0 ; i < nbrTower ; i++) {
             this.towers[i] = new Tower(grid, TOWER_MAX_HEIGHT);
+        }
+        // create snowmans
+        for (int i=0 ; i < nbrSnowman ; i++) {
+            new Snowman(grid, grid.randomEmptyPosition());
         }
     }
 
