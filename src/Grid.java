@@ -78,6 +78,11 @@ public class Grid {
         return this.occupants.get(pos);
     }
 
+    /**
+     * Remove an occupant at a specified position.
+     *
+     * @param pos The position where is the occupant to remove.
+     */
     public void removeAtPosition(Position pos) {
         this.occupants.remove(pos);
     }

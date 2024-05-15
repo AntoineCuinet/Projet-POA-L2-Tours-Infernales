@@ -58,7 +58,7 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
      * Make the player taken control of a tower.
      *
      * @param tower The tower to take control of.
-     * @return True if the tower has correctly added to owned towers list of the player, otherwise false.
+     * @return      True if the tower has correctly added to owned towers list of the player, otherwise false.
      */
     public boolean takeTower(Tower tower) {
         return this.ownedTowers.add(tower);
@@ -68,7 +68,7 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
      * Make the player taken control of a tower.
      *
      * @param tower The tower to leave control of.
-     * @return True if the tower has correctly removed to owned towers list of the player, otherwise false.
+     * @return      True if the tower has correctly removed to owned towers list of the player, otherwise false.
      */
     public boolean leaveTower(Tower tower) {
         return this.ownedTowers.remove(tower);
@@ -83,10 +83,19 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         return this.ownedTowers;
     }
 
+    /**
+     * Check if the player is alive.
+     *
+     * @return True if the player is alive, meanwhile false.
+     */
     public boolean isAlive() {
         return this.state == State.ALIVE;
     }
 
+    /**
+     * Kill the player.
+     * Unown all its towers.
+     */
     public void kill() {
         // unown towers
         for (Tower tower : this.ownedTowers.toArray(new Tower[0])) {
@@ -97,13 +106,21 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         this.icon = SKULL;
     }
 
+    /**
+     * Set the player state to explode.
+     */
     public void explode() {
         this.state = State.EXPLODE;
     }
 
-    public void freeze() {
+    /**
+     * Freeze the player fr
+     *
+     * @param nbrRounds Number of round the player has to stay blocked.
+     */
+    public void freeze(int nbrRounds) {
         this.state = State.FREEZE;
-        this.freezeCount = 6;
+        this.freezeCount = nbrRounds;
     }
 
     /**
@@ -119,7 +136,7 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         // freeze case
         else if (this.state == State.FREEZE) {
             this.freezeCount--;
-            if (this.freezeCount == 0) {
+            if (this.freezeCount <= 0) {
                 this.state = State.ALIVE;
             }
         }
