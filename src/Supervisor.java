@@ -20,14 +20,25 @@ public class Supervisor {
      * @param nbrPlayer     The number of player characters.
      * @param nbrTower      The number of towers.
      * @param refreshRate   The refresh rate for updating the game state.
-     * @throws InvalidVelocityException If an invalid velocity is encountered.
      */
-    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int refreshRate) throws InvalidVelocityException {
+    public Supervisor(int gridWidth, int gridHeight, int nbrPlayer, int nbrTower, int refreshRate) throws IllegalArgumentException, NotEnoughPlaceException {
+        // args check
+        int maxPlayer = Color.array().length;
+        if (nbrPlayer < 1 || nbrPlayer > maxPlayer) {
+            throw new IllegalArgumentException("nrbPlayer must be between 1 and " + maxPlayer + " (inclusive)");
+        }
+        if (gridWidth < 1 || gridHeight < 1) {
+            throw new IllegalArgumentException("Grid must have strictly positive dimentions");
+        }
+        if (nbrTower < 1) {
+            throw new IllegalArgumentException("It must have 1 tower at least");
+        }
+        // init supervisor
         this.grid = new Grid(gridWidth, gridHeight);
         this.players = new Perso[nbrPlayer];
         this.towers = new Tower[nbrTower];
         for (int i=0 ; i < nbrPlayer ; i++) {
-            this.players[i] = new Perso(grid, grid.randomFreePosition());
+            this.players[i] = new Perso(grid, grid.randomEmptyPosition());
         }
         for (int i=0 ; i < nbrTower ; i++) {
             this.towers[i] = new Tower(grid, TOWER_MAX_HEIGHT);

@@ -12,13 +12,20 @@ public class Main {
         // MAIN LOOP PROCESS
         do {
 
-              /*******************************************************/
-             /**  Modifications here for grid, players, towers...  **/
-            /*******************************************************/
-            Supervisor game = new Supervisor(10, 5, 5, 5, 500);
+            Supervisor game;
+            try {
+                  /*******************************************************/
+                 /**  Modifications here for grid, players, towers...  **/
+                /*******************************************************/
+                game = new Supervisor(10, 5, 5, 5, 500);
+            } catch (NotEnoughPlaceException e) {
+                Supervisor.clearScreen();
+                System.err.println("Pas assez de place disponible sur la grille pour le nombre d'éléments spécifié !");
+                return; // stop execution
+            }
             Perso[] results = game.play(50);
 
-            
+
             // display results
             displayGameOver(results);
         } while (askForContinue(scanner));

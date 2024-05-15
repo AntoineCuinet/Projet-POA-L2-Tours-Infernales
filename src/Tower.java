@@ -27,7 +27,7 @@ public class Tower {
      * @param grid      The grid in which the tower will be placed.
      * @param maxHeight The maximum height of the tower.
      */
-    public Tower(Grid grid, int maxHeight) {
+    public Tower(Grid grid, int maxHeight) throws NotEnoughPlaceException {
         this.occupantsIndoor = new HashSet<Occupant>();
         this.owner = null;
         // get index
@@ -38,7 +38,7 @@ public class Tower {
             maxHeight = 1;
         }
         // determine position
-        Position floorPos = grid.randomFreePosition();
+        Position floorPos = grid.randomEmptyPosition();
         new Floor(grid, floorPos, this);
         // get a random height
         this.height = (int)(Math.random() * maxHeight) + 1;

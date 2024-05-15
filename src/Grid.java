@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a grid containing occupants in a 3D space.
@@ -77,29 +79,39 @@ public class Grid {
     }
 
     /**
-     * Generates a random indoor position within the grid.
+     * Returns a set of all empty positions within the grid.
      *
-     * @return A random indoor position within the grid.
+     * @return A set of positions that are currently empty.
      */
-    public Position randomIndoorPosition() {
-        int x = (int)(Math.random() * (width-2)) + 1;
-        int y = (int)(Math.random() * (height-2)) + 1;
-        return new Position(x, y, 0);
+    public Set<Position> getEmptyPositions() {
+        Set<Position> freePos = new HashSet<Position>();
+        for (int x=1 ; x < this.width-1 ; x++) {
+            for (int y=1 ; y < this.height-1 ; y++) {
+                Position pos = new Position(x, y, 0);
+                if (getAtPosition(pos) == null) {
+                    freePos.add(pos);
+                }
+            }
+        }
+        return freePos;
     }
 
     /**
-     * Generates a random free position within the grid.
+     * Generates a random empty position within the grid.
      *
-     * @return A random free position within the grid.
+     * @return A random empty position within the grid.
+     *
+     * @throws NotEnoughPlaceException If not enough place is available.
      */
-    public Position randomFreePosition() {
-        Position pos;
-        Occupant occ;
-        do {
-            pos = randomIndoorPosition();
-            occ = getAtPosition(pos);
-        } while (occ != null);
-        return pos;
+    public Position randomEmptyPosition() throws NotEnoughPlaceException {
+        Position[] freePos = getEmptyPositions().toArray(new Position[0]);
+        // check if enough place is available
+        if(freePos.length == 0) {
+            throw new NotEnoughPlaceException();
+        }
+        // choose a random empty position
+        int index = (int)(Math.random() * freePos.length);
+        return freePos[index];
     }
 
     /**
