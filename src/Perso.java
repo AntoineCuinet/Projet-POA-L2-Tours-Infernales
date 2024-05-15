@@ -5,7 +5,7 @@ import java.util.Set;
  * Represents a player character within a grid, capable of movement.
  * Extends the Moving class and implements the Comparable interface.
  */
-public class Perso extends Moving implements Comparable<Perso> {
+public class Perso extends Moving implements Active, Comparable<Perso> {
     private static final String PERSO = "\u263A";
 
     private static int nbrPlayer = 0; // Number of players created
@@ -80,6 +80,7 @@ public class Perso extends Moving implements Comparable<Perso> {
      * Method that has to be executed in each rounds.
      * Updates the position of the player character based on its current direction.
      */
+    @Override
     public void update() {
         moveTo(getTargetPosition());
     }

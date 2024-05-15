@@ -1,11 +1,14 @@
+import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Represents a supervisor managing the game environment and player interactions.
  */
 public class Supervisor {
     private Grid grid;
+    private Set<Active> actives;
     private Perso[] players;
     private Tower[] towers;
     private int refreshRate;
@@ -35,15 +38,19 @@ public class Supervisor {
         }
         // init supervisor
         this.grid = new Grid(gridWidth, gridHeight);
+        this.actives = new HashSet<Active>();
         this.players = new Perso[nbrPlayer];
         this.towers = new Tower[nbrTower];
+        this.refreshRate = refreshRate;
+        // create players
         for (int i=0 ; i < nbrPlayer ; i++) {
             this.players[i] = new Perso(grid, grid.randomEmptyPosition());
+            this.actives.add(this.players[i]);
         }
+        // create towers
         for (int i=0 ; i < nbrTower ; i++) {
             this.towers[i] = new Tower(grid, TOWER_MAX_HEIGHT);
         }
-        this.refreshRate = refreshRate;
     }
 
     /**
@@ -62,9 +69,9 @@ public class Supervisor {
         // start game loop
         int round = 1;
         while (!gameFinished() && (round <= maxRound || maxRound <= 0)) {
-            // play round for each players
-            for (Perso player : this.players) {
-                player.update();
+            // play round for each actives objects
+            for (Active entity : this.actives) {
+                entity.update();
             }
             clearScreen();
             // display grid
