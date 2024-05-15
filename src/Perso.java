@@ -7,9 +7,13 @@ import java.util.Set;
  */
 public class Perso extends Moving implements Active, Comparable<Perso> {
     private static final String PERSO = "\u263A";
+    private static final String SKULL = "\u2620";
+    private static final String EXPLOSION = "\u2739";
 
     private static int nbrPlayer = 0; // Number of players created
 
+    private State state;
+    private String icon;
     private String color;
     private Set<Tower> ownedTowers;
 
@@ -22,6 +26,8 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
      */
     public Perso(Grid grid, Position position, Direction direction) {
         super(grid, position, direction);
+        this.state = State.ALIVE;
+        this.icon = PERSO;
         this.color = Color.array()[nbrPlayer % Color.array().length];
         this.ownedTowers = new HashSet<Tower>();
         nbrPlayer++;
@@ -76,13 +82,43 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
         return this.ownedTowers;
     }
 
+    public boolean isAlive() {
+        return this.state == State.ALIVE;
+    }
+
+    public void kill() {
+        // unown towers
+        for (Tower tower : this.ownedTowers.toArray(new Tower[0])) {
+            tower.setOwner(null);
+        }
+        // set state
+        this.state = State.DEATH;
+        this.icon = SKULL;
+    }
+
+    public void explode() {
+        this.state = State.EXPLODE;
+    }
+
     /**
      * Method that has to be executed in each rounds.
-     * Updates the position of the player character based on its current direction.
+     * Execute the player behaviour function of its state
      */
     @Override
     public void update() {
-        moveTo(getTargetPosition());
+        // alive case
+        if (this.state == State.ALIVE) {
+            moveTo(getTargetPosition());
+        }
+        // explosion case
+        else if (this.state == State.EXPLODE) {
+            if (this.icon == EXPLOSION) {
+                kill();
+            }
+            else {
+                this.icon = EXPLOSION;
+            }
+        }
     }
 
     /**
@@ -96,13 +132,13 @@ public class Perso extends Moving implements Active, Comparable<Perso> {
     }
 
     /**
-     * Returns a string representation of the player character.
+     * Returns a string representation of the player character function of is state
      *
      * @return The string representation of the player character.
      */
     @Override
     public String toString() {
-        return ' ' + this.color + PERSO + Color.reset() + ' ';
+        return ' ' + this.color + this.icon + Color.reset() + ' ';
     }
 
     /**

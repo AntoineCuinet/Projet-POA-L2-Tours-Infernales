@@ -42,6 +42,8 @@ public class Supervisor {
         this.players = new Perso[nbrPlayer];
         this.towers = new Tower[nbrTower];
         this.refreshRate = refreshRate;
+        // create meteor rain
+        this.actives.add(new MeteorRain(grid, 0.8));
         // create players
         for (int i=0 ; i < nbrPlayer ; i++) {
             this.players[i] = new Perso(grid, grid.randomEmptyPosition());

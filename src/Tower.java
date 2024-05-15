@@ -101,7 +101,9 @@ public class Tower {
         if (isOwned()) {
             this.owner.leaveTower(this);
         }
-        newOwner.takeTower(this);
+        if (newOwner != null) {
+            newOwner.takeTower(this);
+        }
         this.owner = newOwner;
     }
 

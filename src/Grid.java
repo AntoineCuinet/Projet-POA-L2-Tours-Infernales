@@ -78,6 +78,10 @@ public class Grid {
         return this.occupants.get(pos);
     }
 
+    public void removeAtPosition(Position pos) {
+        this.occupants.remove(pos);
+    }
+
     /**
      * Returns a set of all empty positions within the grid.
      *
@@ -94,6 +98,17 @@ public class Grid {
             }
         }
         return freePos;
+    }
+
+    /**
+     * Generates a random indoor position within the grid.
+     *
+     * @return A random indoor position within the grid.
+     */
+    public Position randomIndoorPosition() {
+        int x = (int)(Math.random() * (width-2)) + 1;
+        int y = (int)(Math.random() * (height-2)) + 1;
+        return new Position(x, y, 0);
     }
 
     /**
