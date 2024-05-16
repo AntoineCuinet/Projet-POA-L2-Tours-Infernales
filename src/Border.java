@@ -2,13 +2,13 @@
  * Represents a border object in a grid.
  */
 public class Border extends Occupant {
+    // ASCII art representation of different types of borders
+    private static final String WALL = Color.red() + "\u2588" + Color.reset();
+    private static final String DOWN_WALL = Color.red() + "\u2584" + Color.reset();
+    private static final String UP_WALL = Color.red() + "\u2580" + Color.reset();
+
     private boolean horizontal; // Indicates if the border is horizontal
     private boolean vertical;   // Indicates if the border is vertical
-
-    // ASCII art representation of different types of borders
-    private static final String mur = Color.red() + "\u2588" + Color.reset();
-    private static final String murBas = Color.red() + "\u2584" + Color.reset();
-    private static final String murHaut = Color.red() + "\u2580" + Color.reset();
 
     /**
      * Constructs a new Border object with the specified parameters.
@@ -42,11 +42,11 @@ public class Border extends Occupant {
     @Override
     public String toString() {
         if (vertical && !horizontal) {
-            return mur;
+            return WALL;
         } else if (horizontal && getPosition().y() == 0) {
-            return murHaut + murHaut + murHaut + murHaut;
+            return UP_WALL + UP_WALL + UP_WALL + UP_WALL;
         } else {
-            return murBas + murBas + murBas + murBas;
+            return DOWN_WALL + DOWN_WALL + DOWN_WALL + DOWN_WALL;
         }
     }
 }
