@@ -1,6 +1,18 @@
 import java.util.Scanner;
 
 public class Main {
+
+      /*******************************************************/
+     /**  Modifications here for grid, players, towers...  **/
+    /*******************************************************/
+    private static final int GRID_WIDTH     = 10;
+    private static final int GRID_HEIGHT    = 8;
+    private static final int NBR_PLAYER     = 6;
+    private static final int NBR_TOWER      = 5;
+    private static final int NBR_SNOWMAN    = 5;
+    private static final int REFRESH_RATE   = 400;
+    private static final int MAX_ROUND      = 50;
+
     public static void main(String[] args) throws InvalidVelocityException, InterruptedException {
         // get scanner for user inputs
         Scanner scanner = new Scanner(System.in);
@@ -14,16 +26,13 @@ public class Main {
 
             Supervisor game;
             try {
-                  /*******************************************************/
-                 /**  Modifications here for grid, players, towers...  **/
-                /*******************************************************/
-                game = new Supervisor(10, 8, 6, 5, 5, 400);
+                game = new Supervisor(GRID_WIDTH, GRID_HEIGHT, NBR_PLAYER, NBR_TOWER, NBR_SNOWMAN, REFRESH_RATE);
             } catch (NotEnoughPlaceException e) {
                 Supervisor.clearScreen();
                 System.err.println("Pas assez de place disponible sur la grille pour le nombre d'éléments spécifié !");
                 return; // stop execution
             }
-            Perso[] results = game.play(50);
+            Perso[] results = game.play(MAX_ROUND);
 
 
             // display results
