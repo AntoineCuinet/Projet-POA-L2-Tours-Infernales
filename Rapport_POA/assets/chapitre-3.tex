@@ -5,13 +5,26 @@ Ce chapitre explique le développement de l'application \nom\~, il détaille les
 
 \section{Illustration de points intéressants}
 
-\textcolor{cardinal}{détailler des points intéressants}
+Au delà de la réalisation des fonctionnalités demandées, nous avons mis en place des fonctionnalités supplémentaires qui nous ont semblé intéressantes détaillées ci-dessous.
 
+\subsection{Centralisation de la gestion des couleurs}
+
+Pour faciliter la gestion des couleurs, nous avons centralisé la gestion des couleurs dans une classe \emph{Color}. Cette classe contient des méthodes statiques qui permettent de récupérer des couleurs prédéfinies. 
+Elle est utilisée comme un singleton mais jamais instanciée car abstraite.
+N'importe quel occupant ayant besoin d'une couleur peut alors appeler une méthode abstraite de la classe \emph{Color} qui lui renvoie le code de la couleur correspondante.
+
+\subsection{Utilisation d'un superviseur}
+
+Afin de centraliser et rendre plus lisible l'orchestration du jeu et des personnages, nous avons mis en place un superviseur. Ce superviseur est une classe qui contient les méthodes permettant de lancer le jeu, de gérer les manches de jeu, de gérer les déplacements des personnages, etc.
 
 \section{Partage du travail}
 
-\textcolor{cardinal}{partage du travail}
+Le travail initial d'analyse des besoins de l'application et des structures à implémenter (en respectant les spécifications du sujet avec les classes abstraites, les interfaces, etc.) a été réalisé en commun, en amont du développement.
 
+L'étapoe de développement a ensuite été réalisée en séparant, comme lors de la création d'une application proffessionnelle, le design de l'interface (UI/UX) et les fonctionnalités métiers (interaction entre les structures).
+Réalisée chacune par une personne spécifique, en utilisant l'outil de gestion de version \emph{Git} pour fusionner les modifications.
+
+Enfin, la phase finale de mise en commun des travaux et de rédaction de la documentation ainsi que du rapport a été réalisée ensemble.
 
 \section{Ce qui a été réalisé}
 
@@ -19,13 +32,19 @@ Cette section détaille ce qui a été réalisé dans le projet \nom\~et ce qui 
 
 \subsection{Ce qui a été développé}
 
-\textcolor{cardinal}{ce qui a été développé}
+L'ensemble des fonctionnalités demandées dans le sujet ont été réalisées et testées.
+Nous avons donc implémenté les classes abstraites et les interfaces demandées, ainsi que les classes concrètes qui en héritent.
+Nous avons de plus pris certaines initiatives pour ajouter des fonctionnalités suplémentaires au jeu et le rendre plus complet et intuitif.
 
 
 \subsection{Ce qui a été testé}
 
-\textcolor{cardinal}{ce qui a été testé}
+L'intégralité des exceptions pouvant survenir dans le jeu ont été testées et sont systématiquement attraper à l'aide d'un \emph{try/catch}. Nous avons pour cela implémenté nos propres exceptions qui héritent de la classe \emph{Exception} afin d'avoir une gestion totale et précise de notre code.
 
+Ces gestions d'exceptions correspondent notamment à la validité des directions utlisées pour les déplacements, ainsi que le contrôle de la place restante sur la grille du jeu.
+
+De plus, dans le but d'éviter que plusieurs personnages aient la même couleur, nous avons mis en place un contrôle du nombre maximun de personnage, gérer par le superviseur. 
+Cette fonctionnalité n'est en revanche pas liée à une exception mais fait uniquement l'objet d'un message d'erreur.
 
 \subsection{Ce qui n'a pas été implanté}
 
